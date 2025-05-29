@@ -207,7 +207,7 @@ h6 {
 /* Global Header on Scroll
 ------------------------------*/
 .scrolled .header {
-  --background-color: rgba(0, 0, 0, 0.8);
+  --background-color: rgba(0, 0, 0, 0.9);
 }
 
 /*--------------------------------------------------------------
@@ -1339,7 +1339,7 @@ section,
 }
 
 .pricing ul i {
-  color: #059652;
+  color: #ff0000;
   font-size: 24px;
   padding-right: 3px;
 }

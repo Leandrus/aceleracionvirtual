@@ -71,9 +71,9 @@
     }
 
     function convertirATiempoEnSegundos(tiempo) {
-        // Manejar formatos como "HH:MM:SS" o "MM:SS"
-        const partes = tiempo.split(':').map(num => parseInt(num, 10) || 0);
-        
+        // Asegurar que el formato se convierte correctamente
+        const partes = tiempo.replace(',', '.').split(':').map(num => parseFloat(num) || 0);
+
         if (partes.length === 3) {
             return partes[0] * 3600 + partes[1] * 60 + partes[2]; // HH:MM:SS
         } else if (partes.length === 2) {

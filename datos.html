@@ -26,7 +26,7 @@
     <script>
         async function fetchData() {
         const url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQX9lvA_CwGtdLXEKCP9IKh0ungfrq93I0NjbYghEM_6HHi6YYgR3HDPOLiVnE3g0u3zHZbk8eek2jI/pub?output=csv'; // Reemplázalo con la URL CSV de Google Sheets
-            const response = await fetch(url);
+          const response = await fetch(url);
             const text = await response.text();
 
             // Convertir CSV en matriz, respetando comas dentro de valores entre comillas
@@ -35,14 +35,15 @@
             );
 
             const headers = rows[0];
-            const filteredHeaders = headers.filter(header => header !== '_Telefono' && header !== '_Mejor Vuelta Raw'); // Omitir columnas
+            const columnasPermitidas = ["ID", "Nombre", "Mejor Vuelta", "Sector 1", "Sector 2", "Tiempo Promedio", "Tiempo Total"];
+            const filteredHeaders = headers.filter(header => columnasPermitidas.includes(header)); // Filtrar solo las columnas deseadas
 
             filteredHeaders.unshift("#"); // Agregar columna de numeración
 
             let data = rows.slice(1).map((row, index) => {
                 let obj = { "#": index + 1 }; // Numeración automática
                 row.forEach((cell, colIndex) => {
-                    if (headers[colIndex] !== 'Telefono' && headers[colIndex] !== 'Mejor Vuelta Raw') {
+                    if (columnasPermitidas.includes(headers[colIndex])) {
                         obj[headers[colIndex]] = cell;
                     }
                 });
@@ -66,5 +67,6 @@
         fetchData();
         setInterval(fetchData, 5000); // Actualiza cada 5 segundos
     </script>
+
 </body>
 </html>

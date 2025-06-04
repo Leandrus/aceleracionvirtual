@@ -35,14 +35,14 @@
             );
 
             const headers = rows[0];
-            const filteredHeaders = headers.filter(header => header !== 'Telefono' && header !== 'Mejor Tiempo Raw'); // Omitir columnas
+            const filteredHeaders = headers.filter(header => header !== 'Telefono' && header !== 'Mejor Vuelta Raw'); // Omitir columnas
 
             filteredHeaders.unshift("#"); // Agregar columna de numeración
 
             let data = rows.slice(1).map((row, index) => {
                 let obj = { "#": index + 1 }; // Numeración automática
                 row.forEach((cell, colIndex) => {
-                    if (headers[colIndex] !== 'Telefono' && headers[colIndex] !== 'Mejor Tiempo Raw') {
+                    if (headers[colIndex] !== 'Telefono' && headers[colIndex] !== 'Mejor Vuelta Raw') {
                         obj[headers[colIndex]] = cell;
                     }
                 });

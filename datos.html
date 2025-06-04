@@ -23,42 +23,50 @@
     <h1>Datos desde Google Sheets</h1>
     <div id="data"></div>
 
-    <script>
-    async function fetchData() {
-        const url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQX9lvA_CwGtdLXEKCP9IKh0ungfrq93I0NjbYghEM_6HHi6YYgR3HDPOLiVnE3g0u3zHZbk8eek2jI/pub?output=csv'; // Reemplázalo con la URL CSV de Google Sheets
-        const response = await fetch(url);
-        const text = await response.text();
+<script>
+        async function fetchData() {
+            const url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQX9lvA_CwGtdLXEKCP9IKh0ungfrq93I0NjbYghEM_6HHi6YYgR3HDPOLiVnE3g0u3zHZbk8eek2jI/pub?output=csv'; // Reemplázalo con la URL CSV de Google Sheets
+            const response = await fetch(url);
+            const text = await response.text();
 
-        const rows = text.split('\n').map(row => {
-            // Usamos una expresión regular para dividir respetando comas dentro de comillas
-            return row.match(/(".*?"|[^",]+)(?=\s*,|\s*$)/g).map(cell => cell.replace(/(^"|"$)/g, ''));
-        });
+            // Convertir CSV en matriz, respetando comas dentro de valores entre comillas
+            const rows = text.split('\n').map(row => 
+                row.match(/(".*?"|[^",]+)(?=\s*,|\s*$)/g).map(cell => cell.replace(/(^"|"$)/g, ''))
+            );
 
-        const headers = rows[0];
-        const filteredHeaders = headers.filter(header => header !== 'TELF'); // Omitir "TELF"
+            const headers = rows[0];
+            const filteredHeaders = headers.filter(header => header !== 'TELF'); // Omitir "TELF"
+            filteredHeaders.unshift("#"); // Agregar columna de numeración
 
-        let htmlContent = '<table><tr>';
-        filteredHeaders.forEach(header => {
-            htmlContent += `<th>${header}</th>`;
-        });
-        htmlContent += '</tr>';
-
-        rows.slice(1).forEach(row => {
-            htmlContent += '<tr>';
-            row.forEach((cell, index) => {
-                if (headers[index] !== 'TELF') { // Omitir columna "TELF"
-                    htmlContent += `<td>${cell}</td>`;
-                }
+            let data = rows.slice(1).map((row, index) => {
+                let obj = { "#": index + 1 }; // Numeración automática
+                row.forEach((cell, colIndex) => {
+                    if (headers[colIndex] !== 'TELF') {
+                        obj[headers[colIndex]] = cell;
+                    }
+                });
+                return obj;
             });
+
+            // Ordenar por la columna "MV"
+            data.sort((a, b) => parseFloat(a["MV"]) - parseFloat(b["MV"]));
+
+            let htmlContent = '<table><tr>';
+            filteredHeaders.forEach(header => htmlContent += `<th>${header}</th>`);
             htmlContent += '</tr>';
-        });
-        htmlContent += '</table>';
 
-        document.getElementById('data').innerHTML = htmlContent;
-    }
+            data.forEach(row => {
+                htmlContent += '<tr>';
+                filteredHeaders.forEach(header => htmlContent += `<td>${row[header] || ""}</td>`);
+                htmlContent += '</tr>';
+            });
 
-    fetchData();
-    setInterval(fetchData, 5000); // Actualiza los datos cada 5 segundos
-</script>
+            htmlContent += '</table>';
+            document.getElementById('data').innerHTML = htmlContent;
+        }
+
+        fetchData();
+        setInterval(fetchData, 5000); // Actualiza cada 5 segundos
+    </script>
 </body>
 </html>

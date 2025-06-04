@@ -39,7 +39,7 @@
             filteredHeaders.unshift("#"); // Agregar columna de numeración
 
             let data = rows.slice(1).map((row, index) => {
-                let obj = { "#": index + 1 }; // Numeración automática
+                let obj = { "Pos": index + 1 }; // Numeración automática
                 row.forEach((cell, colIndex) => {
                     if (headers[colIndex] !== 'TELF') {
                         obj[headers[colIndex]] = cell;
@@ -49,7 +49,7 @@
             });
 
             // Ordenar por la columna "MV"
-            data.sort((a, b) => parseFloat(a["MV"]) - parseFloat(b["MV"]));
+            data.sort((a, b) => parseFloat(a["TP"]) - parseFloat(b["TP"]));
 
             let htmlContent = '<table><tr>';
             filteredHeaders.forEach(header => htmlContent += `<th>${header}</th>`);

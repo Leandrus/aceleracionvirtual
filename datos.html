@@ -48,8 +48,8 @@
                 return obj;
             });
 
-            // Ordenar por la columna "MV"
-            data.sort((a, b) => parseFloat(a["TP"]) - parseFloat(b["TP"]));
+            // Ordenar por la columna "Tiempo Promedio"
+            data.sort((a, b) => parseFloat(a["Tiempo Promedio"]) - parseFloat(b["Tiempo Promedio"]));
 
             let htmlContent = '<table><tr>';
             filteredHeaders.forEach(header => htmlContent += `<th>${header}</th>`);

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Datos desde Google Sheets</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+    </style>
+</head>
+<body>
+    <h1>Datos desde Google Sheets</h1>
+    <div id="data"></div>
+
+    <script>
+        async function fetchData() {
+            const url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQX9lvA_CwGtdLXEKCP9IKh0ungfrq93I0NjbYghEM_6HHi6YYgR3HDPOLiVnE3g0u3zHZbk8eek2jI/pub?output=tsv'; // Reemplázalo con la URL CSV de Google Sheets
+            const response = await fetch(url);
+            const text = await response.text();
+
+            const rows = text.split('\n').map(row => row.split(','));
+            const headers = rows[0]; // Obtener encabezados
+            const filteredHeaders = headers.filter(header => header !== 'TELF'); // Omitir "TELF"
+
+            let htmlContent = '<table><tr>';
+            filteredHeaders.forEach(header => {
+                htmlContent += `<th>${header}</th>`;
+            });
+            htmlContent += '</tr>';
+
+            rows.slice(1).forEach(row => {
+                htmlContent += '<tr>';
+                row.forEach((cell, index) => {
+                    if (headers[index] !== 'TELF') { // Omitir columna "TELF"
+                        htmlContent += `<td>${cell}</td>`;
+                    }
+                });
+                htmlContent += '</tr>';
+            });
+            htmlContent += '</table>';
+
+            document.getElementById('data').innerHTML = htmlContent;
+        }
+
+        fetchData();
+        setInterval(fetchData, 5000); // Actualiza los datos cada 5 segundos
+    </script>
+</body>
+</html>

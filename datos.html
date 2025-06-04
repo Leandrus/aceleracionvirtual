@@ -23,70 +23,48 @@
     <h1>Datos desde Google Sheets</h1>
     <div id="data"></div>
 
-<script>
-    async function fetchData() {
+    <script>
+        async function fetchData() {
         const url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQX9lvA_CwGtdLXEKCP9IKh0ungfrq93I0NjbYghEM_6HHi6YYgR3HDPOLiVnE3g0u3zHZbk8eek2jI/pub?output=csv'; // Reemplázalo con la URL CSV de Google Sheets
-        const response = await fetch(url);
-        const text = await response.text();
+            const response = await fetch(url);
+            const text = await response.text();
 
-        const rows = text.split('\n').map(row => 
-            row.match(/(".*?"|[^",]+)(?=\s*,|\s*$)/g).map(cell => cell.replace(/(^"|"$)/g, ''))
-        );
+            // Convertir CSV en matriz, respetando comas dentro de valores entre comillas
+            const rows = text.split('\n').map(row => 
+                row.match(/(".*?"|[^",]+)(?=\s*,|\s*$)/g).map(cell => cell.replace(/(^"|"$)/g, ''))
+            );
 
-        const headers = rows[0];
-        const filteredHeaders = headers.filter(header => header !== 'TELF'); // Omitir "TELF"
-        filteredHeaders.unshift("#"); // Agregar columna de numeración
+            const headers = rows[0];
+            const filteredHeaders = headers.filter(header => header !== 'Telefono' && header !== 'Mejor Tiempo Raw'); // Omitir columnas
 
-        let data = rows.slice(1).map((row, index) => {
-            let obj = { "#": index + 1 }; // Numeración automática
-            row.forEach((cell, colIndex) => {
-                if (headers[colIndex] !== 'TELF') {
-                    obj[headers[colIndex]] = cell;
-                }
+            filteredHeaders.unshift("#"); // Agregar columna de numeración
+
+            let data = rows.slice(1).map((row, index) => {
+                let obj = { "#": index + 1 }; // Numeración automática
+                row.forEach((cell, colIndex) => {
+                    if (headers[colIndex] !== 'Telefono' && headers[colIndex] !== 'Mejor Tiempo Raw') {
+                        obj[headers[colIndex]] = cell;
+                    }
+                });
+                return obj;
             });
 
-            // Convertir "Tiempo Promedio" a segundos para ordenar
-            if (obj["Tiempo Promedio"]) {
-                obj["_tpSegundos"] = convertirATiempoEnSegundos(obj["Tiempo Promedio"]);
-            }
-
-            return obj;
-        });
-
-        // Ordenar por la columna "Tiempo Promedio" convertida a segundos
-        data.sort((a, b) => a["_tpSegundos"] - b["_tpSegundos"]);
-
-        let htmlContent = '<table><tr>';
-        filteredHeaders.forEach(header => htmlContent += `<th>${header}</th>`);
-        htmlContent += '</tr>';
-
-        data.forEach(row => {
-            htmlContent += '<tr>';
-            filteredHeaders.forEach(header => htmlContent += `<td>${row[header] || ""}</td>`);
+            let htmlContent = '<table><tr>';
+            filteredHeaders.forEach(header => htmlContent += `<th>${header}</th>`);
             htmlContent += '</tr>';
-        });
 
-        htmlContent += '</table>';
-        document.getElementById('data').innerHTML = htmlContent;
-    }
+            data.forEach(row => {
+                htmlContent += '<tr>';
+                filteredHeaders.forEach(header => htmlContent += `<td>${row[header] || ""}</td>`);
+                htmlContent += '</tr>';
+            });
 
-    function convertirATiempoEnSegundos(tiempo) {
-        // Asegurar que el formato se convierte correctamente
-        const partes = tiempo.replace(',', '.').split(':').map(num => parseFloat(num) || 0);
-
-        if (partes.length === 3) {
-            return partes[0] * 3600 + partes[1] * 60 + partes[2]; // HH:MM:SS
-        } else if (partes.length === 2) {
-            return partes[0] * 60 + partes[1]; // MM:SS
+            htmlContent += '</table>';
+            document.getElementById('data').innerHTML = htmlContent;
         }
-        
-        return 0; // Si el formato no es válido
-    }
 
-    fetchData();
-    setInterval(fetchData, 5000); // Actualiza cada 5 segundos
-</script>
-
-
+        fetchData();
+        setInterval(fetchData, 5000); // Actualiza cada 5 segundos
+    </script>
 </body>
 </html>

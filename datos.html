@@ -22,7 +22,29 @@
 <body>
     <h1>Datos desde Google Sheets</h1>
     <div id="data"></div>
+    <div id="data2"></div>
 
+
+<script>
+    async function fetchData() {
+        const url = 'https://docs.google.com/spreadsheets/d/e/TU_ID/pub?output=csv';
+        const response = await fetch(url);
+        const text = await response.text();
+
+        const rows = text.split('\n').map(row => row.split(','));
+        let htmlContent = '<table border="1">';
+        rows.forEach(row => {
+            htmlContent += '<tr>' + row.map(cell => `<td>${cell}</td>`).join('') + '</tr>';
+        });
+        htmlContent += '</table>';
+
+        document.getElementById("data2").innerHTML = htmlContent;
+    }
+    fetchData();
+</script>
+
+    
+    
     <script>
         async function fetchData() {
         const url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQX9lvA_CwGtdLXEKCP9IKh0ungfrq93I0NjbYghEM_6HHi6YYgR3HDPOLiVnE3g0u3zHZbk8eek2jI/pub?output=csv'; // Reemplázalo con la URL CSV de Google Sheets

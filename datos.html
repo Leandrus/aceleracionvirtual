@@ -123,7 +123,7 @@
 						return;
 					}
 
-					const headers = ["#", ...rows[0]]; // Agregar columna de numeración al encabezado
+					const headers = ["Pos.", ...rows[0]]; // Agregar columna de numeración al encabezado
 
 					let data = rows.slice(1).map((row, index) => {
 						let obj = { "Pos.": index + 1 }; // Numeración automática

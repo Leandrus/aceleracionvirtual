@@ -27,23 +27,49 @@
 
 <script>
     async function fetchData() {
-        const url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQX9lvA_CwGtdLXEKCP9IKh0ungfrq93I0NjbYghEM_6HHi6YYgR3HDPOLiVnE3g0u3zHZbk8eek2jI/pub?output=csv';
+        const url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQX9lvA_CwGtdLXEKCP9IKh0ungfrq93I0NjbYghEM_6HHi6YYgR3HDPOLiVnE3g0u3zHZbk8eek2jI/pub?output=csv'; // Reemplázalo con la URL CSV de Google Sheets
         const response = await fetch(url);
         const text = await response.text();
 
-        const rows = text.split('\n').map(row => row.split(','));
-        let htmlContent = '<table border="1">';
-        rows.forEach(row => {
-            htmlContent += '<tr>' + row.map(cell => `<td>${cell}</td>`).join('') + '</tr>';
-        });
-        htmlContent += '</table>';
+        // Convertir CSV en matriz, respetando comas dentro de valores entre comillas
+        const rows = text.split('\n').map(row => 
+            row.match(/(".*?"|[^",]+)(?=\s*,|\s*$)/g)?.map(cell => cell.replace(/(^"|"$)/g, '')) || []
+        );
 
-        document.getElementById("data2").innerHTML = htmlContent;
+        if (rows.length === 0) {
+            console.error("No se encontraron datos en la hoja.");
+            return;
+        }
+
+        const headers = rows[0]; // Todas las columnas como encabezados
+
+        let data = rows.slice(1).map((row, index) => {
+            let obj = { "#": index + 1 }; // Numeración automática
+            row.forEach((cell, colIndex) => {
+                obj[headers[colIndex]] = cell;
+            });
+            return obj;
+        });
+
+        let htmlContent = '<table><tr>';
+        headers.forEach(header => htmlContent += `<th>${header}</th>`);
+        htmlContent += '</tr>';
+
+        data.forEach(row => {
+            htmlContent += '<tr>';
+            headers.forEach(header => htmlContent += `<td>${row[header] || ""}</td>`);
+            htmlContent += '</tr>';
+        });
+
+        htmlContent += '</table>';
+        document.getElementById('data2').innerHTML = htmlContent;
     }
+
     fetchData();
+    setInterval(fetchData, 5000); // Actualiza cada 5 segundos
 </script>
 
-    
+    <p>-------------</p>
     
     <script>
         async function fetchData() {

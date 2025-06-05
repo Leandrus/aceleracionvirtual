@@ -35,7 +35,7 @@
             );
 
             const headers = rows[0];
-            const columnasPermitidas = ["ID", "Nombre", "Mejor Vuelta", "Sector 1", "Sector 2", "Tiempo Promedio", "Tiempo Total"];
+            const columnasPermitidas = ["ID", "Nombre", "Tiempo Total", "Sector 1", "Sector 2", "Mejor Vuelta", "Tiempo Promedio"];
             const filteredHeaders = headers.filter(header => columnasPermitidas.includes(header)); // Filtrar solo las columnas deseadas
 
             filteredHeaders.unshift("#"); // Agregar columna de numeración

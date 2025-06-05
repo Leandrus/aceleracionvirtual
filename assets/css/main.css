@@ -2399,3 +2399,37 @@ section,
   color: color-mix(in srgb, var(--default-color), transparent 60%);
   font-size: 14px;
 }
+
+
+/*--------------------------------------------------------------
+# Perzonalizacion de tablas
+--------------------------------------------------------------*/
+table.redTable {
+  border: 2px solid #FFFFFF;
+  background-color: #AF0000;
+  width: 100%;
+  text-align: center;
+  border-collapse: collapse;
+}
+table.redTable td, table.redTable th {
+}
+table.redTable tbody td {
+  color: #000000;
+}
+table.redTable tr:nth-child(even) td {
+    background-color: #000000;
+    color: #ffffff;
+}
+table.redTable tr:nth-child(odd) td {
+    background-color: #ffffff;
+    color: #000000;
+}
+table.redTable thead {
+  background: #FF0000;
+  border-bottom: 2px solid #FFFFFF;
+}
+table.redTable thead th {
+  font-weight: bold;
+  color: #FFFFFF;
+  text-align: center;
+}

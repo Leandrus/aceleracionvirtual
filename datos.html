@@ -22,9 +22,6 @@
 <body>
     <h1>Datos desde Google Sheets</h1>
     <div id="data"></div>
-    <div id="data2"></div>
-
-
 <script>
     async function fetchData() {
         const url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQX9lvA_CwGtdLXEKCP9IKh0ungfrq93I0NjbYghEM_6HHi6YYgR3HDPOLiVnE3g0u3zHZbk8eek2jI/pub?output=csv'; // Reemplázalo con la URL CSV de Google Sheets
@@ -41,12 +38,12 @@
             return;
         }
 
-        const headers = rows[0]; // Todas las columnas como encabezados
+        const headers = ["#", ...rows[0]]; // Agregar columna de numeración al encabezado
 
         let data = rows.slice(1).map((row, index) => {
             let obj = { "#": index + 1 }; // Numeración automática
             row.forEach((cell, colIndex) => {
-                obj[headers[colIndex]] = cell;
+                obj[headers[colIndex + 1]] = cell; // +1 porque agregamos el "#"
             });
             return obj;
         });
@@ -62,59 +59,11 @@
         });
 
         htmlContent += '</table>';
-        document.getElementById('data2').innerHTML = htmlContent;
+        document.getElementById('data').innerHTML = htmlContent;
     }
 
     fetchData();
     setInterval(fetchData, 5000); // Actualiza cada 5 segundos
 </script>
-
-    <p>-------------</p>
-    
-    <script>
-        async function fetchData() {
-        const url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQX9lvA_CwGtdLXEKCP9IKh0ungfrq93I0NjbYghEM_6HHi6YYgR3HDPOLiVnE3g0u3zHZbk8eek2jI/pub?output=csv'; // Reemplázalo con la URL CSV de Google Sheets
-          const response = await fetch(url);
-            const text = await response.text();
-
-            // Convertir CSV en matriz, respetando comas dentro de valores entre comillas
-            const rows = text.split('\n').map(row => 
-                row.match(/(".*?"|[^",]+)(?=\s*,|\s*$)/g).map(cell => cell.replace(/(^"|"$)/g, ''))
-            );
-
-            const headers = rows[0];
-            const columnasPermitidas = ["ID", "Nombre", "Tiempo Total", "Sector 1", "Sector 2", "Mejor Vuelta", "Tiempo Promedio"];
-            const filteredHeaders = headers.filter(header => columnasPermitidas.includes(header)); // Filtrar solo las columnas deseadas
-
-            filteredHeaders.unshift("#"); // Agregar columna de numeración
-
-            let data = rows.slice(1).map((row, index) => {
-                let obj = { "#": index + 1 }; // Numeración automática
-                row.forEach((cell, colIndex) => {
-                    if (columnasPermitidas.includes(headers[colIndex])) {
-                        obj[headers[colIndex]] = cell;
-                    }
-                });
-                return obj;
-            });
-
-            let htmlContent = '<table><tr>';
-            filteredHeaders.forEach(header => htmlContent += `<th>${header}</th>`);
-            htmlContent += '</tr>';
-
-            data.forEach(row => {
-                htmlContent += '<tr>';
-                filteredHeaders.forEach(header => htmlContent += `<td>${row[header] || ""}</td>`);
-                htmlContent += '</tr>';
-            });
-
-            htmlContent += '</table>';
-            document.getElementById('data').innerHTML = htmlContent;
-        }
-
-        fetchData();
-        setInterval(fetchData, 5000); // Actualiza cada 5 segundos
-    </script>
-
 </body>
 </html>

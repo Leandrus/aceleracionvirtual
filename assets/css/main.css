@@ -2433,3 +2433,12 @@ table.redTable thead th {
   color: #FFFFFF;
   text-align: center;
 }
+
+
+#about-rotator {
+  transition: opacity .6s ease;
+  opacity: 1;
+}
+.fade-out {
+  opacity: 0;
+}

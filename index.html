@@ -38,6 +38,36 @@
   ======================================================== -->
 </head>
 
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // 1) Lista de imágenes a rotar
+    const images = [
+      'assets/img/stand_foto1.jpg',
+      'assets/img/stand_foto2.jpg',
+      'assets/img/stand_foto3.jpg',
+	  'assets/img/stand_foto4.jpg',
+	  'assets/img/stand_foto5.jpg'
+      // añade tantas rutas como necesites
+    ];
+
+    // 2) Estado inicial
+    let current = 0;
+    const imgEl = document.getElementById('about-rotator');
+
+    // 3) (Opcional) Pre-carga para que no parpadee
+    images.forEach(url => {
+      const img = new Image();
+      img.src = url;
+    });
+
+    // 4) Función de rotación
+    setInterval(() => {
+      current = (current + 1) % images.length;
+      imgEl.src = images[current];
+    }, 6000); // 10 000 ms = 10 s
+  });
+</script>
+
 <body class="index-page">
 
   <header id="header" class="header d-flex align-items-center fixed-top">
@@ -60,6 +90,7 @@
           <li><a href="#team">Team</a></li>
 		  -->
           <li><a href="#pricing">Precios</a></li>
+		  <li><a href="#avrt">AV-RT</a></li>
 		  <li><a href="#faq">Preguntas</a></li>
           <!--
 		  <li><a href="blog.html">Blog</a></li>
@@ -126,7 +157,7 @@
 
         <div class="row gy-4">
           <div class="col-lg-6">
-            <img src="assets/img/stand.jpg" class="img-fluid" alt="">
+            <img id="about-rotator" src="assets/img/stand_foto5.jpg" class="img-fluid" alt="">
           </div>
           <div class="col-lg-6 content">
             <h3>Adrenalina y presencia</h3>
@@ -240,7 +271,7 @@
             <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-auto">
               <img src="assets/img/masonry-portfolio/auto2.jpg" class="img-fluid" alt="">
               <div class="portfolio-info">
-                <h4>Chevrolet Corsa 1994</h4>
+                <h4>Chevrolet Corsa 2000</h4>
 				<p>Potencia: 89 CV</p>
 				<p>Par motor: 125 Nm</p>
 				<p>Peso: 895 kg</p>
@@ -391,8 +422,19 @@
 					</div>
 				</a>
             </div><!-- End Portfolio Item -->
-			  
-			<!--
+			
+			<div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-video">
+				<a href="assets/img/masonry-portfolio/video4.mp4" title="" data-gallery="portfolio-gallery-video" class="glightbox preview-link">
+					<img src="assets/img/masonry-portfolio/video4.jpg" class="img-fluid" alt="">
+					<div class="portfolio-info">
+						<h4>Assetto Corsa Rally</h4>
+						<p>Video trailer del simulador de rally que utilizamos.</p>
+						<i class="bi bi-play-fill">Ver Video</i>
+					</div>
+				</a>
+            </div>
+			
+			<!-- 
             <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-video">
 				<a href="assets/img/masonry-portfolio/verstappen_belgian.mp4" title="" data-gallery="portfolio-gallery-video" class="glightbox preview-link">
 					<img src="assets/img/masonry-portfolio/verstappen_belgian.jpg" class="img-fluid" alt="">
@@ -402,19 +444,8 @@
 						<i class="bi bi-play-fill">Ver Video</i>
 					</div>
 				</a>
-            </div><!-- End Portfolio Item -->
-
-			<div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-video">
-				<a href="assets/img/masonry-portfolio/video4.mp4" title="" data-gallery="portfolio-gallery-video" class="glightbox preview-link">
-					<img src="assets/img/masonry-portfolio/video4.jpg" class="img-fluid" alt="">
-					<div class="portfolio-info">
-						<h4>Assetto Corsa RALLY</h4>
-						<p>Video trailer del simulador de Rally que utilizaremos en un futuro muy cercano.</p>
-						<i class="bi bi-play-fill">Ver Video</i>
-					</div>
-				</a>
-            </div><!-- End Portfolio Item -->
-			  
+            </div> --><!-- End Portfolio Item -->
+			
             <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-video">
 				<a href="assets/img/masonry-portfolio/video3.mp4" title="" data-gallery="portfolio-gallery-video" class="glightbox preview-link">
 					<img src="assets/img/masonry-portfolio/video3.jpg" class="img-fluid" alt="">
@@ -464,7 +495,7 @@
               <div class="icon flex-shrink-0"><i class="bi bi-rocket-takeoff-fill"></i></div>
               <div>
                 <h4 class="title">Branding impactante para tu marca</h4>
-                <p class="description">Personaliza cada detalle de la exhibición: desde los autos en el simulador hasta la pista, carpa y pancartas, asegurando que tu marca tenga una presencia visual poderosa.</p>
+                <p class="description">Personaliza cada detalle de la exhibición: desde los autos en el simulador hasta la pista. Refuerza utilizando tus herramientas como carpas, pendones, promotoras o cualquier otra herramienta de publicidad que tengas, asegurando que tu marca tenga una presencia visual poderosa.</p>
               </div>
             </div>
           </div><!-- End Service Item -->
@@ -539,8 +570,8 @@
                 <li><i class="bi bi-check"></i> <span>Simulador de carreras</span></li>
 				<li><i class="bi bi-check"></i> <span>Branding de autos y pistas</span></li>
                 <li><i class="bi bi-check"></i> <span>Pantalla de espectadores</span></li>
-                <li><i class="bi bi-check"></i> <span>Ayudante/Técnico</span></li>
-				<li><i class="bi bi-check"></i> <span>Promotora/Narrador</span></li>
+                <li><i class="bi bi-check"></i> <span>Narradora/Promotora</span></li>
+				<li><i class="bi bi-check"></i> <span>Técnico/Organizador</span></li>
 				<li><i class="bi bi-check"></i> <span>Material multimedia</span></li>
               </ul>
 			  <!--<a href="https://wa.me/+584129175484" target="_blank" class="buy-btn">Escribenos</a>-->

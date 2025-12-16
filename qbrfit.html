@@ -1,78 +1,51 @@
 <!DOCTYPE html>
-<html lang="es" class="scroll-smooth">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nexus Portfolio | Perfil Multidisciplinario</title>
-    <!-- Tailwind CSS (CDN para prototipado rápido y portabilidad) -->
+    <title>QbrFit System - Presentación Oficial</title>
+    
+    <!-- Importamos Tailwind CSS para el diseño rápido y moderno -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Iconos Lucide -->
-    <script src="https://unpkg.com/lucide@latest"></script>
-
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
-    <!-- Configuración personalizada de Tailwind -->
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['"Space Grotesk"', 'sans-serif'],
-                    },
-                    colors: {
-                        cyber: {
-                            dark: '#020617', // Slate 950
-                            card: '#0f172a', // Slate 900
-                            primary: '#06b6d4', // Cyan 500
-                            secondary: '#a855f7', // Purple 500
-                            accent: '#22c55e', // Green 500
-                        }
-                    },
-                    animation: {
-                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-                        'float': 'float 6s ease-in-out infinite',
-                    },
-                    keyframes: {
-                        float: {
-                            '0%, 100%': { transform: 'translateY(0)' },
-                            '50%': { transform: 'translateY(-20px)' },
-                        }
-                    }
-                }
-            }
-        }
-    </script>
+    <!-- Importamos Iconos de FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Fuentes de Google -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap" rel="stylesheet">
 
     <style>
-        /* Estilos base adicionales */
         body {
-            background-color: #020617;
-            color: #e2e8f0;
+            font-family: 'Inter', sans-serif;
+            background-color: #050505;
+            color: #ffffff;
+            overflow-x: hidden;
         }
-        
+
+        /* Efecto de fondo Carbono */
+        .bg-carbon {
+            background-color: #0a0a0a;
+            background-image: radial-gradient(#1a1a1a 15%, transparent 16%), radial-gradient(#1a1a1a 15%, transparent 16%);
+            background-size: 60px 60px;
+            background-position: 0 0, 30px 30px;
+        }
+
         /* Scrollbar personalizada */
         ::-webkit-scrollbar {
-            width: 10px;
+            width: 8px;
         }
         ::-webkit-scrollbar-track {
-            background: #0f172a;
+            background: #000; 
         }
         ::-webkit-scrollbar-thumb {
-            background: #334155;
-            border-radius: 5px;
+            background: #333; 
+            border-radius: 4px;
         }
         ::-webkit-scrollbar-thumb:hover {
-            background: #06b6d4;
+            background: #dc2626; 
         }
 
-        /* Efecto de glow en hover */
-        .glow-hover:hover {
-            box-shadow: 0 0 20px rgba(6, 182, 212, 0.3);
-        }
-
-        /* Animación de entrada para las tarjetas */
+        /* Animaciones */
         .fade-in {
             animation: fadeIn 0.5s ease-in-out;
         }
@@ -80,477 +53,807 @@
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
+
+        .pulse-red {
+            box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.7);
+            animation: pulse-red 2s infinite;
+        }
+        @keyframes pulse-red {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(220, 38, 38, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(220, 38, 38, 0); }
+        }
+
+        /* Toggle Switch personalizado */
+        .toggle-checkbox:checked {
+            right: 0;
+            border-color: #dc2626;
+        }
+        .toggle-checkbox:checked + .toggle-label {
+            background-color: #dc2626;
+        }
+        
+        .iphone-mockup {
+            border: 14px solid #1a1a1a;
+            border-radius: 50px;
+            overflow: hidden;
+            position: relative;
+            background: #000;
+        }
+        .iphone-notch {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 25px;
+            background: #1a1a1a;
+            border-bottom-left-radius: 12px;
+            border-bottom-right-radius: 12px;
+            z-index: 20;
+        }
     </style>
 </head>
-<body class="antialiased overflow-x-hidden">
+<body class="flex h-screen overflow-hidden">
 
-    <!-- Navbar -->
-    <nav id="navbar" class="fixed top-0 w-full z-50 transition-all duration-300 py-4">
-        <div class="max-w-7xl mx-auto px-6 flex justify-between items-center">
-            <div class="text-2xl font-bold tracking-tighter cursor-pointer">
-                <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-500">NEXUS</span><span class="text-white">.DEV</span>
-            </div>
-            
-            <!-- Desktop Menu -->
-            <div class="hidden md:flex space-x-8 text-sm font-medium">
-                <a href="#hero" class="hover:text-cyan-400 transition-colors">Perfil</a>
-                <a href="#experience" class="hover:text-cyan-400 transition-colors">Trayectoria</a>
-                <a href="#skills" class="hover:text-cyan-400 transition-colors">Skills</a>
-                <a href="#hobbies" class="hover:text-cyan-400 transition-colors">Sim Racing</a>
-                <a href="#contact" class="hover:text-cyan-400 transition-colors">Contacto</a>
-            </div>
+    <!-- SIDEBAR DE NAVEGACIÓN -->
+    <aside class="w-64 bg-black border-r border-gray-900 flex flex-col z-20 hidden md:flex">
+        <div class="p-6 border-b border-gray-900">
+            <h1 class="text-3xl font-black italic tracking-tighter">QBR<span class="text-red-600">FIT</span></h1>
+            <p class="text-xs text-gray-500 mt-1 uppercase tracking-widest">System v3.0</p>
+        </div>
 
-            <!-- Mobile Menu Button -->
-            <button id="mobile-menu-btn" class="md:hidden text-white hover:text-cyan-400">
-                <i data-lucide="menu"></i>
+        <nav class="flex-1 overflow-y-auto py-4">
+            <div class="px-4 mb-2 text-[10px] font-bold text-gray-600 uppercase">Introducción</div>
+            <button onclick="showSlide('intro')" class="nav-btn w-full text-left px-6 py-3 text-gray-400 hover:text-white hover:bg-gray-900 transition-all flex items-center gap-3 border-l-4 border-transparent hover:border-red-600">
+                <i class="fas fa-home"></i> Visión General
             </button>
+
+            <div class="px-4 mt-6 mb-2 text-[10px] font-bold text-gray-600 uppercase">Gestión Básica</div>
+            <button onclick="showSlide('gestion')" class="nav-btn w-full text-left px-6 py-3 text-gray-400 hover:text-white hover:bg-gray-900 transition-all flex items-center gap-3 border-l-4 border-transparent hover:border-red-600">
+                <i class="fas fa-chart-line"></i> Dashboard & Pagos
+            </button>
+            <button onclick="showSlide('agenda')" class="nav-btn w-full text-left px-6 py-3 text-gray-400 hover:text-white hover:bg-gray-900 transition-all flex items-center gap-3 border-l-4 border-transparent hover:border-red-600">
+                <i class="fas fa-calendar-alt"></i> Clases & Rutinas
+            </button>
+
+            <div class="px-4 mt-6 mb-2 text-[10px] font-bold text-red-500 uppercase">Diferenciadores</div>
+            <button onclick="showSlide('social')" class="nav-btn w-full text-left px-6 py-3 text-gray-400 hover:text-white hover:bg-gray-900 transition-all flex items-center gap-3 border-l-4 border-transparent hover:border-red-600">
+                <i class="fas fa-users"></i> Comunidad & Liga
+            </button>
+            <button onclick="showSlide('monetizacion')" class="nav-btn w-full text-left px-6 py-3 text-gray-400 hover:text-white hover:bg-gray-900 transition-all flex items-center gap-3 border-l-4 border-transparent hover:border-red-600">
+                <i class="fas fa-store"></i> Marketplace
+            </button>
+            <button onclick="showSlide('experiencia')" class="nav-btn w-full text-left px-6 py-3 text-gray-400 hover:text-white hover:bg-gray-900 transition-all flex items-center gap-3 border-l-4 border-transparent hover:border-red-600">
+                <i class="fas fa-music"></i> Rockola & QR
+            </button>
+            
+            <div class="px-4 mt-6 mb-2 text-[10px] font-bold text-blue-500 uppercase flex items-center gap-1"><i class="fas fa-robot"></i> Inteligencia Artificial</div>
+            <button onclick="showSlide('ia')" class="nav-btn w-full text-left px-6 py-3 text-gray-400 hover:text-white hover:bg-gray-900 transition-all flex items-center gap-3 border-l-4 border-transparent hover:border-blue-500">
+                <i class="fas fa-brain"></i> Gemini Coach
+            </button>
+        </nav>
+
+        <div class="p-4 border-t border-gray-900">
+            <div class="flex items-center gap-3">
+                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Felix" class="w-10 h-10 rounded-full bg-gray-800">
+                <div>
+                    <p class="text-sm font-bold text-white">Usuario Demo</p>
+                    <p class="text-xs text-gray-500">Dueño de Gimnasio</p>
+                </div>
+            </div>
         </div>
+    </aside>
+
+    <!-- ÁREA PRINCIPAL DE CONTENIDO -->
+    <main class="flex-1 bg-carbon relative flex flex-col h-full overflow-hidden">
         
-        <!-- Mobile Menu Dropdown -->
-        <div id="mobile-menu" class="hidden md:hidden absolute top-16 left-0 w-full bg-slate-900 border-b border-slate-800 p-4 flex flex-col space-y-4 shadow-xl">
-            <a href="#hero" class="text-slate-300 hover:text-cyan-400">Perfil</a>
-            <a href="#experience" class="text-slate-300 hover:text-cyan-400">Trayectoria</a>
-            <a href="#hobbies" class="text-slate-300 hover:text-cyan-400">Hobbies</a>
-            <a href="#contact" class="text-slate-300 hover:text-cyan-400">Contacto</a>
+        <!-- HEADER MÓVIL (Solo visible en pantallas pequeñas) -->
+        <div class="md:hidden bg-black p-4 flex justify-between items-center border-b border-gray-800">
+            <h1 class="text-xl font-black italic">QBR<span class="text-red-600">FIT</span></h1>
+            <button class="text-white"><i class="fas fa-bars"></i></button>
         </div>
-    </nav>
 
-    <!-- Hero Section -->
-    <section id="hero" class="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
-        <!-- Background Elements -->
-        <div class="absolute top-20 left-10 w-64 h-64 bg-purple-600/20 rounded-full blur-[100px] animate-pulse-slow"></div>
-        <div class="absolute bottom-20 right-10 w-96 h-96 bg-cyan-600/20 rounded-full blur-[100px] animate-pulse-slow delay-1000"></div>
-
-        <div class="relative z-10 max-w-5xl mx-auto px-6 text-center animate-fade-in">
-            <div class="inline-block mb-4 px-4 py-1 rounded-full border border-cyan-500/30 bg-cyan-900/10 text-cyan-400 text-sm font-mono tracking-widest">
-                SISTEMA INICIADO: MODO PROFESIONAL
-            </div>
+        <!-- CONTENEDOR DE SLIDES -->
+        <div id="slide-container" class="flex-1 overflow-y-auto p-6 md:p-12 relative">
             
-            <h1 class="text-5xl md:text-7xl font-bold mb-6 leading-tight text-white">
-                Hola, soy <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-500">Tu Nombre</span>
-            </h1>
-            
-            <p class="text-xl md:text-2xl text-slate-400 max-w-3xl mx-auto mb-10 leading-relaxed">
-                Un perfil híbrido que fusiona la <span class="text-white font-semibold">Programación</span>, las <span class="text-white font-semibold">Finanzas</span> y el <span class="text-white font-semibold">Marketing</span>.
-                <br class="hidden md:block" />Desde crear videojuegos y eventos VR hasta optimizar logística empresarial.
-            </p>
-            
-            <div class="flex flex-wrap justify-center gap-4">
-                <a href="#experience" class="px-8 py-3 rounded-lg bg-gradient-to-r from-cyan-600 to-cyan-500 text-white font-bold hover:shadow-[0_0_20px_rgba(6,182,212,0.5)] transition-all transform hover:-translate-y-1 border border-transparent">
-                    Explorar Proyectos
-                </a>
-                <a href="#contact" class="px-8 py-3 rounded-lg border border-slate-700 bg-slate-900/50 hover:bg-slate-800 transition-all text-slate-300 backdrop-blur-sm">
-                    Contactar
-                </a>
-            </div>
-        </div>
-
-        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce text-slate-500">
-            <i data-lucide="chevron-down" width="32" height="32"></i>
-        </div>
-    </section>
-
-    <!-- Experience Matrix Section -->
-    <section id="experience" class="py-24 bg-slate-950 relative">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="mb-16 text-center">
-                <h2 class="text-3xl md:text-4xl font-bold mb-4 text-white">La Matriz de Experiencia</h2>
-                <p class="text-slate-400">Selecciona una dimensión para filtrar mi trayectoria profesional.</p>
-            </div>
-
-            <!-- Filters -->
-            <div class="flex flex-wrap justify-center gap-3 mb-12" id="portfolio-filters">
-                <button class="filter-btn active flex items-center gap-2 px-6 py-3 rounded-full text-sm font-bold transition-all border border-cyan-500 bg-cyan-500/10 text-cyan-400 shadow-[0_0_15px_rgba(6,182,212,0.3)]" data-filter="all">
-                    <i data-lucide="globe" width="16"></i> Todo
-                </button>
-                <button class="filter-btn flex items-center gap-2 px-6 py-3 rounded-full text-sm font-bold transition-all border border-slate-800 bg-slate-900 text-slate-500 hover:border-slate-600 hover:text-slate-300" data-filter="dev">
-                    <i data-lucide="code" width="16"></i> Tech & Dev
-                </button>
-                <button class="filter-btn flex items-center gap-2 px-6 py-3 rounded-full text-sm font-bold transition-all border border-slate-800 bg-slate-900 text-slate-500 hover:border-slate-600 hover:text-slate-300" data-filter="biz">
-                    <i data-lucide="trending-up" width="16"></i> Negocios & Trading
-                </button>
-                <button class="filter-btn flex items-center gap-2 px-6 py-3 rounded-full text-sm font-bold transition-all border border-slate-800 bg-slate-900 text-slate-500 hover:border-slate-600 hover:text-slate-300" data-filter="corp">
-                    <i data-lucide="briefcase" width="16"></i> Corporativo
-                </button>
-                <button class="filter-btn flex items-center gap-2 px-6 py-3 rounded-full text-sm font-bold transition-all border border-slate-800 bg-slate-900 text-slate-500 hover:border-slate-600 hover:text-slate-300" data-filter="event">
-                    <i data-lucide="party-popper" width="16"></i> Eventos & BTL
-                </button>
-                <button class="filter-btn flex items-center gap-2 px-6 py-3 rounded-full text-sm font-bold transition-all border border-slate-800 bg-slate-900 text-slate-500 hover:border-slate-600 hover:text-slate-300" data-filter="own">
-                    <i data-lucide="store" width="16"></i> Emprendimientos
-                </button>
-            </div>
-
-            <!-- Grid Content -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="experience-grid">
-                
-                <!-- Card 1: Freelance Dev -->
-                <div class="exp-card group relative p-6 rounded-2xl bg-slate-900/50 border border-slate-800 hover:border-cyan-500/50 transition-all duration-300 hover:-translate-y-1 glow-hover" data-category="dev">
-                    <div class="absolute top-4 right-4 opacity-20 group-hover:opacity-100 transition-opacity">
-                        <i data-lucide="code" class="text-cyan-400"></i>
-                    </div>
-                    <div class="text-xs font-mono text-cyan-500 mb-2 uppercase tracking-wide">Actualidad</div>
-                    <h3 class="text-xl font-bold text-white mb-1">Desarrollador Full Stack & Game Dev</h3>
-                    <h4 class="text-slate-400 mb-4 flex items-center gap-2 text-sm">Freelance</h4>
-                    <p class="text-slate-400 text-sm leading-relaxed mb-6">
-                        Desarrollo de aplicaciones web y videojuegos con propósitos de marketing (Advergames). Creación de soluciones a medida para clientes internacionales.
-                    </p>
-                    <div class="flex flex-wrap gap-2 mt-auto">
-                        <span class="px-2 py-1 text-xs rounded bg-slate-800 text-slate-300 border border-slate-700">React</span>
-                        <span class="px-2 py-1 text-xs rounded bg-slate-800 text-slate-300 border border-slate-700">Unity</span>
-                    </div>
-                </div>
-
-                <!-- Card 2: BTL Events -->
-                <div class="exp-card group relative p-6 rounded-2xl bg-slate-900/50 border border-slate-800 hover:border-cyan-500/50 transition-all duration-300 hover:-translate-y-1 glow-hover" data-category="event">
-                    <div class="absolute top-4 right-4 opacity-20 group-hover:opacity-100 transition-opacity">
-                        <i data-lucide="party-popper" class="text-purple-400"></i>
-                    </div>
-                    <div class="text-xs font-mono text-cyan-500 mb-2 uppercase tracking-wide">Proyectos</div>
-                    <h3 class="text-xl font-bold text-white mb-1">Experto en Desarrollo de Eventos BTL</h3>
-                    <h4 class="text-slate-400 mb-4 flex items-center gap-2 text-sm">Beyondline</h4>
-                    <p class="text-slate-400 text-sm leading-relaxed mb-6">
-                        Innovación en experiencias de marca utilizando simuladores de carrera y realidad virtual (VR) para promocionar productos y servicios.
-                    </p>
-                    <div class="flex flex-wrap gap-2 mt-auto">
-                        <span class="px-2 py-1 text-xs rounded bg-slate-800 text-slate-300 border border-slate-700">Simuladores</span>
-                        <span class="px-2 py-1 text-xs rounded bg-slate-800 text-slate-300 border border-slate-700">VR</span>
-                    </div>
-                </div>
-
-                <!-- Card 3: Supercell -->
-                <div class="exp-card group relative p-6 rounded-2xl bg-slate-900/50 border border-slate-800 hover:border-cyan-500/50 transition-all duration-300 hover:-translate-y-1 glow-hover" data-category="corp">
-                    <div class="absolute top-4 right-4 opacity-20 group-hover:opacity-100 transition-opacity">
-                        <i data-lucide="briefcase" class="text-blue-400"></i>
-                    </div>
-                    <div class="text-xs font-mono text-cyan-500 mb-2 uppercase tracking-wide">Experiencia Pasada</div>
-                    <h3 class="text-xl font-bold text-white mb-1">Soporte al Jugador</h3>
-                    <h4 class="text-slate-400 mb-4 flex items-center gap-2 text-sm">Supercell</h4>
-                    <p class="text-slate-400 text-sm leading-relaxed mb-6">
-                        Soporte técnico y resolución de problemas para Clash Royale, Clash of Clans, Hay Day y Brawl Stars. Gestión de comunidad.
-                    </p>
-                    <div class="flex flex-wrap gap-2 mt-auto">
-                        <span class="px-2 py-1 text-xs rounded bg-slate-800 text-slate-300 border border-slate-700">Gaming</span>
-                        <span class="px-2 py-1 text-xs rounded bg-slate-800 text-slate-300 border border-slate-700">Customer Success</span>
-                    </div>
-                </div>
-
-                <!-- Card 4: Trader -->
-                <div class="exp-card group relative p-6 rounded-2xl bg-slate-900/50 border border-slate-800 hover:border-cyan-500/50 transition-all duration-300 hover:-translate-y-1 glow-hover" data-category="biz">
-                    <div class="absolute top-4 right-4 opacity-20 group-hover:opacity-100 transition-opacity">
-                        <i data-lucide="trending-up" class="text-green-400"></i>
-                    </div>
-                    <div class="text-xs font-mono text-cyan-500 mb-2 uppercase tracking-wide">Independiente</div>
-                    <h3 class="text-xl font-bold text-white mb-1">Operador de Bolsa & Trader</h3>
-                    <h4 class="text-slate-400 mb-4 flex items-center gap-2 text-sm">Mercados Financieros</h4>
-                    <p class="text-slate-400 text-sm leading-relaxed mb-6">
-                        Análisis técnico y fundamental operando en mercados de acciones, índices bursátiles y criptomonedas durante varios años.
-                    </p>
-                    <div class="flex flex-wrap gap-2 mt-auto">
-                        <span class="px-2 py-1 text-xs rounded bg-slate-800 text-slate-300 border border-slate-700">Finanzas</span>
-                        <span class="px-2 py-1 text-xs rounded bg-slate-800 text-slate-300 border border-slate-700">Crypto</span>
-                    </div>
-                </div>
-
-                <!-- Card 5: TikTok/FB -->
-                <div class="exp-card group relative p-6 rounded-2xl bg-slate-900/50 border border-slate-800 hover:border-cyan-500/50 transition-all duration-300 hover:-translate-y-1 glow-hover" data-category="corp">
-                    <div class="absolute top-4 right-4 opacity-20 group-hover:opacity-100 transition-opacity">
-                        <i data-lucide="shield-alert" class="text-red-400"></i>
-                    </div>
-                    <div class="text-xs font-mono text-cyan-500 mb-2 uppercase tracking-wide">Big Tech</div>
-                    <h3 class="text-xl font-bold text-white mb-1">Marketing & Content Moderator</h3>
-                    <h4 class="text-slate-400 mb-4 flex items-center gap-2 text-sm">Facebook & TikTok</h4>
-                    <p class="text-slate-400 text-sm leading-relaxed mb-6">
-                        Gestión de campañas de marketing y moderación de contenido sensible para garantizar la seguridad de la comunidad.
-                    </p>
-                    <div class="flex flex-wrap gap-2 mt-auto">
-                        <span class="px-2 py-1 text-xs rounded bg-slate-800 text-slate-300 border border-slate-700">Ads</span>
-                        <span class="px-2 py-1 text-xs rounded bg-slate-800 text-slate-300 border border-slate-700">Policy</span>
-                    </div>
-                </div>
-
-                <!-- Card 6: SAP / Logistics -->
-                <div class="exp-card group relative p-6 rounded-2xl bg-slate-900/50 border border-slate-800 hover:border-cyan-500/50 transition-all duration-300 hover:-translate-y-1 glow-hover" data-category="biz">
-                    <div class="absolute top-4 right-4 opacity-20 group-hover:opacity-100 transition-opacity">
-                        <i data-lucide="package" class="text-yellow-400"></i>
-                    </div>
-                    <div class="text-xs font-mono text-cyan-500 mb-2 uppercase tracking-wide">Logística</div>
-                    <h3 class="text-xl font-bold text-white mb-1">Optimización de Sistemas & SAP</h3>
-                    <h4 class="text-slate-400 mb-4 flex items-center gap-2 text-sm">Distribuidora Mayorista</h4>
-                    <p class="text-slate-400 text-sm leading-relaxed mb-6">
-                        Implementación de SAP Business One. Desarrollo de sistemas internos para agilizar despachos y optimizar rutas.
-                    </p>
-                    <div class="flex flex-wrap gap-2 mt-auto">
-                        <span class="px-2 py-1 text-xs rounded bg-slate-800 text-slate-300 border border-slate-700">SAP B1</span>
-                        <span class="px-2 py-1 text-xs rounded bg-slate-800 text-slate-300 border border-slate-700">Logística</span>
-                    </div>
-                </div>
-
-                <!-- Card 7: Emprendimiento -->
-                <div class="exp-card group relative p-6 rounded-2xl bg-slate-900/50 border border-slate-800 hover:border-cyan-500/50 transition-all duration-300 hover:-translate-y-1 glow-hover" data-category="own">
-                    <div class="absolute top-4 right-4 opacity-20 group-hover:opacity-100 transition-opacity">
-                        <i data-lucide="store" class="text-orange-400"></i>
-                    </div>
-                    <div class="text-xs font-mono text-cyan-500 mb-2 uppercase tracking-wide">Propietario</div>
-                    <h3 class="text-xl font-bold text-white mb-1">Fundador & Propietario</h3>
-                    <h4 class="text-slate-400 mb-4 flex items-center gap-2 text-sm">Varios Negocios</h4>
-                    <p class="text-slate-400 text-sm leading-relaxed mb-6">
-                        Creación y gestión de negocios físicos: Un Cyber Café, Micromercado y tiendas retail de joyería y perfumería.
-                    </p>
-                    <div class="flex flex-wrap gap-2 mt-auto">
-                        <span class="px-2 py-1 text-xs rounded bg-slate-800 text-slate-300 border border-slate-700">Gestión PYME</span>
-                        <span class="px-2 py-1 text-xs rounded bg-slate-800 text-slate-300 border border-slate-700">Ventas</span>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <!-- Skills & Education Section -->
-    <section id="skills" class="py-24 bg-gradient-to-b from-slate-950 to-slate-900">
-        <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-16">
-            
-            <!-- Skills -->
-            <div>
-                <h3 class="text-2xl font-bold text-white mb-8 flex items-center gap-3">
-                    <i data-lucide="cpu" class="text-purple-500"></i>
-                    Core del Sistema (Skills)
-                </h3>
-                <div class="space-y-6">
-                    <!-- Skill Bar -->
+            <!-- SLIDE 1: INTRODUCCIÓN -->
+            <section id="intro" class="slide active fade-in max-w-5xl mx-auto h-full flex flex-col justify-center">
+                <div class="grid md:grid-cols-2 gap-12 items-center">
                     <div>
-                        <div class="flex justify-between mb-2 text-sm font-medium text-slate-300">
-                            <span>Desarrollo Web & Apps</span>
-                            <span>90%</span>
-                        </div>
-                        <div class="h-2 w-full bg-slate-800 rounded-full overflow-hidden">
-                            <div class="h-full bg-cyan-500 shadow-[0_0_10px_currentColor]" style="width: 90%"></div>
-                        </div>
-                    </div>
-                    <!-- Skill Bar -->
-                    <div>
-                        <div class="flex justify-between mb-2 text-sm font-medium text-slate-300">
-                            <span>Trading & Finanzas</span>
-                            <span>85%</span>
-                        </div>
-                        <div class="h-2 w-full bg-slate-800 rounded-full overflow-hidden">
-                            <div class="h-full bg-green-500 shadow-[0_0_10px_currentColor]" style="width: 85%"></div>
+                        <span class="bg-red-600 text-white text-xs font-bold px-2 py-1 rounded uppercase tracking-wider mb-4 inline-block">Propuesta 2024</span>
+                        <h1 class="text-5xl md:text-7xl font-black leading-tight mb-6">MÁS QUE ENTRENAR, <br><span class="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-red-800">PERTENECER.</span></h1>
+                        <p class="text-xl text-gray-400 mb-8 leading-relaxed">
+                            El sistema operativo definitivo para gimnasios modernos. Detén las cancelaciones, crea una tribu leal y genera ingresos pasivos.
+                        </p>
+                        <div class="flex gap-4">
+                            <button onclick="showSlide('gestion')" class="bg-red-600 text-white font-bold py-4 px-8 rounded hover:bg-red-700 transition-colors shadow-lg shadow-red-900/50 flex items-center gap-2">
+                                Ver Demo del Sistema <i class="fas fa-arrow-right"></i>
+                            </button>
+                            <button class="border border-gray-600 text-gray-300 font-bold py-4 px-8 rounded hover:bg-gray-800 transition-colors">
+                                Ver Modelo de Negocio
+                            </button>
                         </div>
                     </div>
-                     <!-- Skill Bar -->
-                     <div>
-                        <div class="flex justify-between mb-2 text-sm font-medium text-slate-300">
-                            <span>Marketing Digital (Ads)</span>
-                            <span>80%</span>
-                        </div>
-                        <div class="h-2 w-full bg-slate-800 rounded-full overflow-hidden">
-                            <div class="h-full bg-purple-500 shadow-[0_0_10px_currentColor]" style="width: 80%"></div>
-                        </div>
-                    </div>
-                    <!-- Skill Bar -->
-                    <div>
-                        <div class="flex justify-between mb-2 text-sm font-medium text-slate-300">
-                            <span>SAP Business One</span>
-                            <span>75%</span>
-                        </div>
-                        <div class="h-2 w-full bg-slate-800 rounded-full overflow-hidden">
-                            <div class="h-full bg-blue-500 shadow-[0_0_10px_currentColor]" style="width: 75%"></div>
+                    <div class="relative">
+                        <div class="absolute -inset-1 bg-gradient-to-r from-red-600 to-red-900 rounded-2xl blur opacity-30"></div>
+                        <div class="relative bg-gray-900 p-6 rounded-2xl border border-gray-800">
+                            <div class="flex items-center gap-4 mb-6 border-b border-gray-800 pb-4">
+                                <div class="w-12 h-12 bg-red-600 rounded-full flex items-center justify-center text-xl font-bold">VS</div>
+                                <div>
+                                    <h3 class="font-bold text-white text-lg">El Problema del Gym Tradicional</h3>
+                                    <p class="text-sm text-gray-400">¿Por qué pierdes clientes?</p>
+                                </div>
+                            </div>
+                            <ul class="space-y-4">
+                                <li class="flex items-start gap-3">
+                                    <i class="fas fa-times-circle text-red-500 mt-1"></i>
+                                    <div>
+                                        <p class="font-bold text-white">Guerra de Precios</p>
+                                        <p class="text-sm text-gray-500">Siempre habrá un gym más barato cerca.</p>
+                                    </div>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <i class="fas fa-times-circle text-red-500 mt-1"></i>
+                                    <div>
+                                        <p class="font-bold text-white">Soledad del Cliente</p>
+                                        <p class="text-sm text-gray-500">Si no hacen amigos, dejan de ir al mes 2.</p>
+                                    </div>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <i class="fas fa-times-circle text-red-500 mt-1"></i>
+                                    <div>
+                                        <p class="font-bold text-white">Falta de Innovación</p>
+                                        <p class="text-sm text-gray-500">Papel, lápiz y máquinas viejas no retienen.</p>
+                                    </div>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>
-            </div>
+            </section>
 
-            <!-- Education -->
-            <div>
-                <h3 class="text-2xl font-bold text-white mb-8 flex items-center gap-3">
-                    <i data-lucide="zap" class="text-yellow-500"></i>
-                    Base de Datos (Educación)
-                </h3>
-                <div class="space-y-8 border-l-2 border-slate-800 pl-8 relative">
-                    
-                    <div class="relative group">
-                        <span class="absolute -left-[41px] top-1 h-5 w-5 rounded-full border-4 border-slate-950 bg-cyan-500 group-hover:scale-125 transition-transform"></span>
-                        <h4 class="text-lg font-bold text-white">Técnico Superior en Informática</h4>
-                        <p class="text-slate-400 text-sm mt-1">Formación Académica Formal</p>
+            <!-- SLIDE 2: GESTIÓN BÁSICA -->
+            <section id="gestion" class="slide hidden fade-in max-w-6xl mx-auto">
+                <div class="flex justify-between items-end mb-8">
+                    <div>
+                        <h2 class="text-3xl font-bold mb-2 flex items-center gap-3"><i class="fas fa-chart-line text-red-600"></i> Gestión & Finanzas</h2>
+                        <p class="text-gray-400">Lo básico que necesitas: Pagos automáticos y control de acceso.</p>
                     </div>
-
-                    <div class="relative group">
-                        <span class="absolute -left-[41px] top-1 h-5 w-5 rounded-full border-4 border-slate-950 bg-purple-500 group-hover:scale-125 transition-transform"></span>
-                        <h4 class="text-lg font-bold text-white">SAP Business One</h4>
-                        <p class="text-slate-400 text-sm mt-1">Certificación Profesional e Implementación</p>
+                    <!-- Toggle Switch -->
+                    <div class="bg-gray-800 p-1 rounded-lg flex">
+                        <button onclick="toggleView('gestion', 'user')" class="view-btn active px-4 py-2 rounded text-xs font-bold bg-white text-black transition-all">Vista Cliente</button>
+                        <button onclick="toggleView('gestion', 'owner')" class="view-btn px-4 py-2 rounded text-xs font-bold text-gray-400 hover:text-white transition-all">Vista Dueño</button>
                     </div>
-
-                    <div class="relative group">
-                        <span class="absolute -left-[41px] top-1 h-5 w-5 rounded-full border-4 border-slate-950 bg-green-500 group-hover:scale-125 transition-transform"></span>
-                        <h4 class="text-lg font-bold text-white">Aprendizaje Autónomo</h4>
-                        <p class="text-slate-400 text-sm mt-1">Cursos de Trading, Marketing Digital y Desarrollo de Videojuegos (Unity/Unreal).</p>
-                    </div>
-
                 </div>
-            </div>
+
+                <div class="grid md:grid-cols-2 gap-12">
+                    <!-- CONTENIDO CAMBIANTE -->
+                    <div id="gestion-content" class="md:col-span-2">
+                        <!-- Se inyecta con JS -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 3: AGENDA -->
+            <section id="agenda" class="slide hidden fade-in max-w-6xl mx-auto">
+                <div class="flex justify-between items-end mb-8">
+                    <div>
+                        <h2 class="text-3xl font-bold mb-2 flex items-center gap-3"><i class="fas fa-calendar-alt text-red-600"></i> Clases & Rutinas</h2>
+                        <p class="text-gray-400">Olvídate del papel. Rutinas digitales y reservas de clases.</p>
+                    </div>
+                    <div class="bg-gray-800 p-1 rounded-lg flex">
+                        <button onclick="toggleView('agenda', 'user')" class="view-btn active px-4 py-2 rounded text-xs font-bold bg-white text-black">Vista Cliente</button>
+                        <button onclick="toggleView('agenda', 'owner')" class="view-btn px-4 py-2 rounded text-xs font-bold text-gray-400 hover:text-white">Vista Dueño</button>
+                    </div>
+                </div>
+                <div id="agenda-content" class="w-full"></div>
+            </section>
+
+            <!-- SLIDE 4: SOCIAL (COMUNIDAD) -->
+            <section id="social" class="slide hidden fade-in max-w-6xl mx-auto">
+                <div class="flex justify-between items-end mb-8">
+                    <div>
+                        <h2 class="text-3xl font-bold mb-2 flex items-center gap-3"><i class="fas fa-users text-red-600"></i> Comunidad & Liga</h2>
+                        <p class="text-gray-400">Creamos "FOMO" (Miedo a perderse algo). La competencia retiene.</p>
+                    </div>
+                    <div class="bg-gray-800 p-1 rounded-lg flex">
+                        <button onclick="toggleView('social', 'user')" class="view-btn active px-4 py-2 rounded text-xs font-bold bg-white text-black">Vista Cliente</button>
+                        <button onclick="toggleView('social', 'owner')" class="view-btn px-4 py-2 rounded text-xs font-bold text-gray-400 hover:text-white">Vista Dueño</button>
+                    </div>
+                </div>
+                <div id="social-content" class="w-full"></div>
+            </section>
+
+            <!-- SLIDE 5: MONETIZACIÓN -->
+            <section id="monetizacion" class="slide hidden fade-in max-w-6xl mx-auto">
+                <div class="flex justify-between items-end mb-8">
+                    <div>
+                        <h2 class="text-3xl font-bold mb-2 flex items-center gap-3"><i class="fas fa-store text-red-600"></i> Marketplace Digital</h2>
+                        <p class="text-gray-400">Vende programas y dietas mientras duermes. Ingreso pasivo.</p>
+                    </div>
+                    <div class="bg-gray-800 p-1 rounded-lg flex">
+                        <button onclick="toggleView('monetizacion', 'user')" class="view-btn active px-4 py-2 rounded text-xs font-bold bg-white text-black">Vista Cliente</button>
+                        <button onclick="toggleView('monetizacion', 'owner')" class="view-btn px-4 py-2 rounded text-xs font-bold text-gray-400 hover:text-white">Vista Dueño</button>
+                    </div>
+                </div>
+                <div id="monetizacion-content" class="w-full"></div>
+            </section>
+
+            <!-- SLIDE 6: EXPERIENCIA (ROCKOLA) -->
+            <section id="experiencia" class="slide hidden fade-in max-w-6xl mx-auto">
+                <div class="flex justify-between items-end mb-8">
+                    <div>
+                        <h2 class="text-3xl font-bold mb-2 flex items-center gap-3"><i class="fas fa-music text-red-600"></i> Rockola & Wiki QR</h2>
+                        <p class="text-gray-400">Democracia musical y educación automatizada en máquinas.</p>
+                    </div>
+                    <div class="bg-gray-800 p-1 rounded-lg flex">
+                        <button onclick="toggleView('experiencia', 'user')" class="view-btn active px-4 py-2 rounded text-xs font-bold bg-white text-black">Vista Cliente</button>
+                        <button onclick="toggleView('experiencia', 'owner')" class="view-btn px-4 py-2 rounded text-xs font-bold text-gray-400 hover:text-white">Vista Dueño</button>
+                    </div>
+                </div>
+                <div id="experiencia-content" class="w-full"></div>
+            </section>
+
+            <!-- SLIDE 7: IA (GEMINI) -->
+            <section id="ia" class="slide hidden fade-in max-w-6xl mx-auto">
+                <div class="flex justify-between items-end mb-8">
+                    <div>
+                        <h2 class="text-3xl font-bold mb-2 flex items-center gap-3 text-blue-500"><i class="fas fa-brain"></i> Gemini AI Coach</h2>
+                        <p class="text-gray-400">El futuro hoy. Visión computacional y predicción de abandono.</p>
+                    </div>
+                    <div class="bg-gray-800 p-1 rounded-lg flex">
+                        <button onclick="toggleView('ia', 'user')" class="view-btn active px-4 py-2 rounded text-xs font-bold bg-white text-black">Vista Cliente</button>
+                        <button onclick="toggleView('ia', 'owner')" class="view-btn px-4 py-2 rounded text-xs font-bold text-gray-400 hover:text-white">Vista Dueño</button>
+                    </div>
+                </div>
+                <div id="ia-content" class="w-full"></div>
+            </section>
+
         </div>
-    </section>
+    </main>
 
-    <!-- Hobbies Section -->
-    <section id="hobbies" class="py-24 relative overflow-hidden bg-slate-900">
-        <!-- Overlay image imitation -->
-        <div class="absolute inset-0 bg-slate-950/80 z-0"></div>
-        <div class="absolute inset-0 z-0 opacity-20 bg-[url('https://images.unsplash.com/photo-1547394765-185e1e68f34e?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center bg-fixed"></div>
-
-        <div class="relative z-10 max-w-7xl mx-auto px-6 text-center">
-            <h2 class="text-4xl font-bold mb-12 text-white flex items-center justify-center gap-3">
-                <i data-lucide="gamepad-2" class="text-cyan-400" width="40" height="40"></i>
-                Modo Desconexión
-            </h2>
-
-            <div class="grid md:grid-cols-3 gap-8">
-                <!-- Sim Racing -->
-                <div class="bg-slate-950/90 backdrop-blur border border-slate-700 p-8 rounded-2xl hover:border-red-500 transition-colors group">
-                    <div class="w-16 h-16 mx-auto bg-slate-800 rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                        <i data-lucide="car" class="text-red-500" width="32" height="32"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-white mb-2">Sim Racing</h3>
-                    <p class="text-slate-400">
-                        La búsqueda de la vuelta perfecta. Pasión por la simulación de carreras, el hardware de conducción y la telemetría.
-                    </p>
-                </div>
-
-                <!-- Gaming -->
-                <div class="bg-slate-950/90 backdrop-blur border border-slate-700 p-8 rounded-2xl hover:border-purple-500 transition-colors group">
-                    <div class="w-16 h-16 mx-auto bg-slate-800 rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                        <i data-lucide="monitor" class="text-purple-500" width="32" height="32"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-white mb-2">Gaming & eSports</h3>
-                    <p class="text-slate-400">
-                        Desde Clash Royale hasta títulos AAA. No solo juego, analizo las mecánicas y el mercado detrás de ellos.
-                    </p>
-                </div>
-
-                <!-- Sports -->
-                <div class="bg-slate-950/90 backdrop-blur border border-slate-700 p-8 rounded-2xl hover:border-green-500 transition-colors group">
-                    <div class="w-16 h-16 mx-auto bg-slate-800 rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                        <i data-lucide="activity" class="text-green-500" width="32" height="32"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-white mb-2">Deportes & Actividad</h3>
-                    <p class="text-slate-400">
-                        Equilibrio entre la vida digital y física. Deportes tradicionales para mantener la mente despejada y competitiva.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="py-24 bg-slate-950 relative">
-        <div class="max-w-4xl mx-auto px-6 text-center">
-            <h2 class="text-3xl md:text-4xl font-bold mb-8 text-white">¿Listo para colaborar?</h2>
-            <p class="text-slate-400 mb-12">
-                Ya sea para desarrollar una web, organizar un evento con simuladores, o hablar de mercados financieros.
-            </p>
-            
-            <div class="bg-slate-900 p-8 rounded-3xl border border-slate-800 shadow-2xl">
-                <div class="flex flex-col md:flex-row justify-center gap-8 mb-8 border-b border-slate-800 pb-8">
-                    <a href="mailto:tuemail@ejemplo.com" class="flex items-center justify-center gap-2 text-slate-300 hover:text-cyan-400 transition-colors">
-                        <i data-lucide="mail" width="20"></i> tunombre@email.com
-                    </a>
-                    <a href="#" class="flex items-center justify-center gap-2 text-slate-300 hover:text-cyan-400 transition-colors">
-                        <i data-lucide="linkedin" width="20"></i> LinkedIn Profile
-                    </a>
-                    <a href="#" class="flex items-center justify-center gap-2 text-slate-300 hover:text-cyan-400 transition-colors">
-                        <i data-lucide="github" width="20"></i> Github Profile
-                    </a>
-                </div>
-                
-                <form class="space-y-4 text-left max-w-lg mx-auto" onsubmit="event.preventDefault(); alert('Gracias por contactar. Esto es una demo.')">
-                    <div>
-                        <label class="block text-sm font-medium text-slate-400 mb-1">Nombre</label>
-                        <input type="text" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-all" required>
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-slate-400 mb-1">Email</label>
-                        <input type="email" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-all" required>
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-slate-400 mb-1">Mensaje</label>
-                        <textarea rows="4" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-all" required></textarea>
-                    </div>
-                    <button type="submit" class="w-full bg-gradient-to-r from-cyan-600 to-purple-600 text-white font-bold py-3 rounded-lg hover:shadow-[0_0_20px_rgba(147,51,234,0.5)] hover:scale-[1.02] transition-all">
-                        Enviar Transmisión
-                    </button>
-                </form>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="py-8 bg-slate-950 border-t border-slate-900 text-center text-slate-500 text-sm">
-        <p>© 2024 The Nexus Portfolio. Diseñado con Pasión.</p>
-    </footer>
-
-    <!-- JavaScript para Interactividad -->
+    <!-- SCRIPTS PARA LA LÓGICA DE LA APP -->
     <script>
-        // Inicializar Iconos Lucide
-        lucide.createIcons();
+        // --- BASE DE DATOS DE VISTAS (HTML PURO PARA RENDERIZADO) ---
+        const views = {
+            gestion: {
+                user: `
+                    <div class="flex justify-center">
+                        <div class="iphone-mockup w-[320px] h-[650px] bg-black text-white overflow-hidden shadow-2xl">
+                            <div class="iphone-notch"></div>
+                            <div class="h-full overflow-y-auto pt-12 pb-4 px-4 bg-zinc-900">
+                                <div class="flex justify-between items-center mb-6">
+                                    <div>
+                                        <h3 class="font-bold text-lg">Hola, Carlos</h3>
+                                        <p class="text-xs text-green-500 flex items-center gap-1"><i class="fas fa-check-circle"></i> Membresía Activa</p>
+                                    </div>
+                                    <div class="w-10 h-10 rounded-full bg-red-600 flex items-center justify-center font-bold">CR</div>
+                                </div>
+                                
+                                <!-- QR Card -->
+                                <div class="bg-gradient-to-br from-zinc-800 to-black p-4 rounded-xl border border-red-600 mb-4 text-center">
+                                    <p class="text-xs text-gray-400 mb-2">TU ACCESO</p>
+                                    <div class="bg-white p-2 w-32 h-32 mx-auto rounded mb-2">
+                                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=QbrFitAccess" alt="QR">
+                                    </div>
+                                    <p class="text-xs text-gray-500">Vence: 15 Oct</p>
+                                </div>
 
-        // Lógica de Scroll para el Navbar
-        const navbar = document.getElementById('navbar');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) {
-                navbar.classList.add('bg-slate-950/90', 'backdrop-blur-md', 'border-b', 'border-cyan-500/20', 'shadow-lg');
-                navbar.classList.remove('py-4');
-                navbar.classList.add('py-2');
-            } else {
-                navbar.classList.remove('bg-slate-950/90', 'backdrop-blur-md', 'border-b', 'border-cyan-500/20', 'shadow-lg', 'py-2');
-                navbar.classList.add('py-4');
+                                <div class="grid grid-cols-2 gap-3 mb-4">
+                                    <div class="bg-black p-3 rounded-xl border border-gray-800 text-center">
+                                        <p class="text-gray-400 text-xs">Asistencias</p>
+                                        <p class="text-xl font-bold">12/30</p>
+                                    </div>
+                                    <div class="bg-black p-3 rounded-xl border border-gray-800 text-center">
+                                        <p class="text-gray-400 text-xs">GymPoints</p>
+                                        <p class="text-xl font-bold text-yellow-500">450</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `,
+                owner: `
+                    <div class="bg-gray-900 rounded-xl border border-gray-800 p-8 shadow-2xl">
+                        <div class="flex justify-between items-center mb-8 pb-4 border-b border-gray-800">
+                            <h3 class="text-2xl font-bold">Panel Administrativo</h3>
+                            <button class="bg-red-600 text-white px-4 py-2 rounded text-sm font-bold hover:bg-red-700">Exportar Reporte</button>
+                        </div>
+
+                        <!-- KPIs -->
+                        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+                            <div class="bg-black p-6 rounded-lg border-l-4 border-red-600">
+                                <p class="text-gray-500 text-xs uppercase mb-1">Ingresos Hoy</p>
+                                <p class="text-3xl font-bold">$450.00</p>
+                            </div>
+                            <div class="bg-black p-6 rounded-lg border-l-4 border-blue-600">
+                                <p class="text-gray-500 text-xs uppercase mb-1">Miembros Activos</p>
+                                <p class="text-3xl font-bold">142</p>
+                            </div>
+                            <div class="bg-black p-6 rounded-lg border-l-4 border-green-500">
+                                <p class="text-gray-500 text-xs uppercase mb-1">Asistencia Real</p>
+                                <p class="text-3xl font-bold">34 <span class="text-sm font-normal text-gray-500">/ 100</span></p>
+                            </div>
+                             <div class="bg-black p-6 rounded-lg border-l-4 border-yellow-500">
+                                <p class="text-gray-500 text-xs uppercase mb-1">Cuentas por Cobrar</p>
+                                <p class="text-3xl font-bold text-yellow-500">$120</p>
+                            </div>
+                        </div>
+
+                        <!-- Tabla Live -->
+                        <div class="bg-black rounded-lg border border-gray-800 overflow-hidden">
+                            <div class="p-4 bg-gray-800 border-b border-gray-700 font-bold flex justify-between">
+                                <span>Últimos Accesos (Torno)</span>
+                                <span class="text-green-500 text-xs animate-pulse">● En Vivo</span>
+                            </div>
+                            <table class="w-full text-left text-sm text-gray-400">
+                                <thead class="bg-gray-900 text-xs uppercase">
+                                    <tr>
+                                        <th class="p-4">Hora</th>
+                                        <th class="p-4">Usuario</th>
+                                        <th class="p-4">Estado</th>
+                                        <th class="p-4">Acción</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-gray-800">
+                                    <tr>
+                                        <td class="p-4">10:42 AM</td>
+                                        <td class="p-4 font-bold text-white">Maria Gonzalez</td>
+                                        <td class="p-4 text-green-500">Al día</td>
+                                        <td class="p-4"><span class="bg-green-900 text-green-300 px-2 py-1 rounded text-xs">Permitido</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="p-4">10:40 AM</td>
+                                        <td class="p-4 font-bold text-white">Juan Perez</td>
+                                        <td class="p-4 text-red-500">Vencido (2 días)</td>
+                                        <td class="p-4"><span class="bg-red-900 text-red-300 px-2 py-1 rounded text-xs">Denegado</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                `
+            },
+            agenda: {
+                user: `
+                 <div class="flex justify-center">
+                    <div class="iphone-mockup w-[320px] h-[650px] bg-black text-white overflow-hidden shadow-2xl">
+                        <div class="iphone-notch"></div>
+                        <div class="h-full overflow-y-auto pt-12 pb-4 px-4 bg-zinc-900">
+                            <h3 class="font-bold text-xl mb-4">Agenda de Hoy</h3>
+                            
+                            <!-- Clase 1 -->
+                            <div class="bg-zinc-800 p-4 rounded-xl border-l-4 border-red-600 mb-3 flex gap-3">
+                                <div class="text-center">
+                                    <p class="font-bold text-lg">09:00</p>
+                                    <p class="text-xs text-gray-500">AM</p>
+                                </div>
+                                <div class="flex-1">
+                                    <p class="font-bold text-red-500">CrossFit WOD</p>
+                                    <p class="text-xs text-gray-400">Coach Miguel</p>
+                                    <div class="w-full bg-gray-700 h-1 mt-2 rounded"><div class="bg-red-600 w-3/4 h-1 rounded"></div></div>
+                                    <p class="text-[10px] text-gray-500 mt-1">4 cupos libres</p>
+                                </div>
+                                <button class="bg-red-600 text-white text-xs px-2 rounded h-8 self-center">Reservar</button>
+                            </div>
+
+                             <!-- Clase 2 -->
+                            <div class="bg-zinc-800 p-4 rounded-xl border-l-4 border-gray-600 mb-3 flex gap-3 opacity-60">
+                                <div class="text-center">
+                                    <p class="font-bold text-lg">10:00</p>
+                                    <p class="text-xs text-gray-500">AM</p>
+                                </div>
+                                <div class="flex-1">
+                                    <p class="font-bold text-white">Yoga Flex</p>
+                                    <p class="text-xs text-gray-400">Coach Sarah</p>
+                                    <span class="bg-gray-700 text-[10px] px-2 py-0.5 rounded mt-1 inline-block">Lista de Espera</span>
+                                </div>
+                                <button class="bg-gray-600 text-gray-300 text-xs px-2 rounded h-8 self-center cursor-not-allowed">Lleno</button>
+                            </div>
+
+                            <h3 class="font-bold text-xl mt-6 mb-4">Mi Rutina</h3>
+                             <div class="bg-black p-4 rounded-xl border border-gray-700">
+                                <div class="flex justify-between mb-2">
+                                    <span class="font-bold">Sentadilla Libre</span>
+                                    <span class="text-xs text-blue-400"><i class="fas fa-video"></i> Ver técnica</span>
+                                </div>
+                                <div class="flex gap-2 mb-2">
+                                    <input type="text" value="80kg" class="bg-zinc-900 border border-gray-700 rounded w-16 text-center text-sm py-1">
+                                    <input type="text" value="10 reps" class="bg-zinc-900 border border-gray-700 rounded w-16 text-center text-sm py-1">
+                                    <button class="bg-green-600 text-white w-8 h-8 rounded"><i class="fas fa-check"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                 </div>
+                `,
+                owner: `
+                 <div class="bg-gray-900 rounded-xl border border-gray-800 p-8 shadow-2xl h-[500px]">
+                    <div class="flex justify-between items-center mb-6">
+                        <h3 class="font-bold text-xl">Gestión de Clases</h3>
+                        <button class="bg-red-600 text-white px-3 py-2 rounded text-sm hover:bg-red-700">+ Nueva Clase</button>
+                    </div>
+                    <div class="grid grid-cols-3 gap-4">
+                        <div class="bg-black p-4 rounded border border-gray-800 relative">
+                             <span class="absolute top-2 right-2 w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+                             <h4 class="font-bold">CrossFit 9AM</h4>
+                             <p class="text-xs text-gray-500 mb-2">Miguel • Sala A</p>
+                             <div class="w-full bg-gray-800 h-2 rounded-full mb-2"><div class="bg-red-600 w-[80%] h-2 rounded-full"></div></div>
+                             <p class="text-xs text-right mb-3">16/20 Inscritos</p>
+                             <div class="flex gap-2">
+                                <button class="flex-1 bg-gray-800 text-xs py-1 rounded hover:bg-gray-700">Ver Lista</button>
+                                <button class="flex-1 bg-gray-800 text-xs text-red-500 py-1 rounded hover:bg-gray-700">Cancelar</button>
+                             </div>
+                        </div>
+                        <div class="bg-black p-4 rounded border border-gray-800">
+                             <h4 class="font-bold">Zumba 6PM</h4>
+                             <p class="text-xs text-gray-500 mb-2">Laura • Sala B</p>
+                             <div class="w-full bg-gray-800 h-2 rounded-full mb-2"><div class="bg-blue-600 w-[30%] h-2 rounded-full"></div></div>
+                             <p class="text-xs text-right mb-3">6/30 Inscritos</p>
+                             <div class="flex gap-2">
+                                <button class="flex-1 bg-gray-800 text-xs py-1 rounded hover:bg-gray-700">Ver Lista</button>
+                                <button class="flex-1 bg-gray-800 text-xs text-blue-400 py-1 rounded hover:bg-gray-700">Promocionar</button>
+                             </div>
+                        </div>
+                    </div>
+                 </div>
+                `
+            },
+            social: {
+                user: `
+                <div class="flex justify-center">
+                    <div class="iphone-mockup w-[320px] h-[650px] bg-black text-white overflow-hidden shadow-2xl">
+                        <div class="iphone-notch"></div>
+                        <div class="h-full overflow-y-auto pt-12 pb-4 px-4 bg-zinc-900">
+                            
+                            <!-- Liga Card -->
+                            <div class="bg-gradient-to-r from-red-900 to-black p-4 rounded-xl border border-red-700 mb-6 text-center">
+                                <p class="text-xs text-red-300 uppercase tracking-widest mb-1">Liga Regional</p>
+                                <h2 class="text-3xl font-black italic">POSICIÓN #2</h2>
+                                <p class="text-sm font-bold mt-1">QbrFit Quíbor</p>
+                                <p class="text-[10px] text-gray-400 mt-2">¡Estamos a 140 pts de ganar!</p>
+                            </div>
+
+                            <!-- Feed -->
+                            <div class="bg-black p-4 rounded-xl border border-gray-800 mb-4">
+                                <div class="flex items-center gap-3 mb-3">
+                                    <div class="w-8 h-8 bg-gray-700 rounded-full border border-red-500 flex items-center justify-center text-xs">MA</div>
+                                    <div>
+                                        <p class="text-sm font-bold">Marcos "La Bestia"</p>
+                                        <p class="text-[10px] text-gray-500">Hace 20 min</p>
+                                    </div>
+                                </div>
+                                <p class="text-sm mb-3">¡Nuevo PR en Banca! 120kg 🔥 Gracias al coach por el spot.</p>
+                                <div class="bg-gray-800 h-32 rounded flex items-center justify-center text-gray-600 text-xs mb-3">
+                                    [VIDEO]
+                                </div>
+                                <div class="flex gap-4">
+                                    <button class="text-red-500 text-xs font-bold flex items-center gap-1"><i class="fas fa-fire"></i> 42 Fuego</button>
+                                    <button class="text-gray-400 text-xs flex items-center gap-1"><i class="fas fa-comment"></i> 5 Comentarios</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                `,
+                owner: `
+                 <div class="bg-gray-900 rounded-xl border border-gray-800 p-8 shadow-2xl h-[500px]">
+                    <div class="grid grid-cols-2 gap-8 h-full">
+                        <div>
+                            <h3 class="font-bold text-xl mb-4">Salud de la Comunidad</h3>
+                            <div class="bg-black p-4 rounded mb-4 flex justify-between items-center">
+                                <span>Interacciones Hoy</span>
+                                <span class="text-2xl font-bold text-green-500">1,240</span>
+                            </div>
+                            <div class="bg-black p-4 rounded mb-4">
+                                <p class="mb-2 font-bold">Moderación</p>
+                                <div class="text-gray-500 text-sm text-center py-4">No hay reportes pendientes ✅</div>
+                            </div>
+                        </div>
+                        <div class="border-l border-gray-800 pl-8">
+                            <div class="flex justify-between items-center mb-4">
+                                <h3 class="font-bold text-xl text-red-500">Liga Inter-Gimnasios</h3>
+                                <div class="relative inline-block w-10 align-middle select-none transition duration-200 ease-in">
+                                    <input type="checkbox" name="toggle" id="toggle" checked class="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-4 appearance-none cursor-pointer"/>
+                                    <label for="toggle" class="toggle-label block overflow-hidden h-5 rounded-full bg-red-600 cursor-pointer"></label>
+                                </div>
+                            </div>
+                            <p class="text-sm text-gray-400 mb-4">Tu gimnasio está compartiendo estadísticas anónimas para competir.</p>
+                            
+                            <div class="bg-black p-4 rounded border border-gray-800">
+                                <h4 class="font-bold mb-3">Ranking Actual</h4>
+                                <div class="flex justify-between text-sm mb-2 opacity-50">
+                                    <span>1. Spartan Gym</span>
+                                    <span>9,800 pts</span>
+                                </div>
+                                <div class="flex justify-between text-sm mb-2 text-red-500 font-bold bg-red-900/20 p-1 rounded">
+                                    <span>2. TU GIMNASIO</span>
+                                    <span>9,660 pts</span>
+                                </div>
+                                <div class="flex justify-between text-sm opacity-50">
+                                    <span>3. Iron House</span>
+                                    <span>6,200 pts</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                 </div>
+                `
+            },
+            monetizacion: {
+                user: `
+                <div class="flex justify-center">
+                    <div class="iphone-mockup w-[320px] h-[650px] bg-black text-white overflow-hidden shadow-2xl">
+                        <div class="iphone-notch"></div>
+                        <div class="h-full overflow-y-auto pt-12 pb-4 px-4 bg-zinc-900">
+                            <h3 class="font-bold text-xl mb-4 flex items-center gap-2"><i class="fas fa-shopping-bag text-red-500"></i> Tienda Digital</h3>
+                            
+                            <!-- Featured -->
+                            <div class="relative h-40 rounded-xl bg-gradient-to-r from-red-800 to-black p-4 flex flex-col justify-center border border-red-700 mb-6">
+                                <span class="bg-yellow-500 text-black text-[10px] font-bold px-2 py-0.5 rounded w-fit mb-2">TOP VENTAS</span>
+                                <h3 class="font-bold text-xl w-2/3 leading-tight">Reto Abdomen de Acero 🔥</h3>
+                                <p class="text-xs text-gray-300 mt-1">Por: Coach Miguel</p>
+                                <div class="mt-auto flex items-center gap-3">
+                                    <span class="text-2xl font-bold">$12.99</span>
+                                    <button class="bg-white text-black text-xs font-bold px-3 py-2 rounded hover:bg-gray-200">Comprar Ahora</button>
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-2 gap-3">
+                                <div class="bg-black p-3 rounded-xl border border-gray-800">
+                                    <div class="bg-gray-800 h-20 rounded mb-2 flex items-center justify-center text-xs text-gray-500">[PDF]</div>
+                                    <p class="font-bold text-sm truncate">Recetario Keto</p>
+                                    <p class="text-red-500 font-bold text-sm">$8.00</p>
+                                </div>
+                                <div class="bg-black p-3 rounded-xl border border-gray-800">
+                                    <div class="bg-gray-800 h-20 rounded mb-2 flex items-center justify-center text-xs text-gray-500">[VIDEO]</div>
+                                    <p class="font-bold text-sm truncate">Glúteos en Casa</p>
+                                    <p class="text-red-500 font-bold text-sm">$15.00</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                `,
+                owner: `
+                 <div class="bg-gray-900 rounded-xl border border-gray-800 p-8 shadow-2xl h-[400px] flex flex-col justify-center">
+                    <div class="flex items-center gap-8">
+                        <div class="flex-1 bg-gradient-to-br from-zinc-800 to-black p-6 rounded-xl border border-gray-700 text-center">
+                            <div class="w-16 h-16 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-4 text-green-500 text-2xl">
+                                <i class="fas fa-dollar-sign"></i>
+                            </div>
+                            <p class="text-gray-400 text-sm">Tus Comisiones (20%)</p>
+                            <p class="text-5xl font-bold text-white mt-2">$345.00</p>
+                            <p class="text-xs text-green-500 mt-2">Ingreso 100% Pasivo este mes</p>
+                        </div>
+                        <div class="flex-1 space-y-4">
+                            <h3 class="font-bold text-lg">Aprobación de Productos</h3>
+                            <div class="bg-black p-3 rounded border border-gray-700 flex justify-between items-center">
+                                <div>
+                                    <p class="text-sm font-bold">Guía Detox 7 Días</p>
+                                    <p class="text-xs text-gray-500">Nutri Ana • $10.00</p>
+                                </div>
+                                <button class="text-green-500 text-xs font-bold hover:underline">Aprobar y Publicar</button>
+                            </div>
+                            <div class="p-4 bg-blue-900/20 border border-blue-900 rounded text-xs text-blue-200">
+                                <i class="fas fa-info-circle"></i> Tus entrenadores crean el contenido, tú pones la plataforma y ganas comisión.
+                            </div>
+                        </div>
+                    </div>
+                 </div>
+                `
+            },
+            experiencia: {
+                user: `
+                <div class="flex justify-center">
+                    <div class="iphone-mockup w-[320px] h-[650px] bg-black text-white overflow-hidden shadow-2xl">
+                        <div class="iphone-notch"></div>
+                        <div class="h-full overflow-y-auto pt-12 pb-4 px-4 bg-zinc-900">
+                            <!-- Rockola -->
+                            <div class="bg-zinc-800 p-4 rounded-xl border border-red-900/50 text-center relative mb-6">
+                                <div class="absolute top-0 left-0 w-full h-1 bg-red-600 animate-pulse"></div>
+                                <p class="text-[10px] text-red-500 font-bold uppercase tracking-widest mb-2">Rockola del Gym</p>
+                                <div class="w-20 h-20 bg-black mx-auto rounded flex items-center justify-center mb-2 shadow-lg text-red-600 text-2xl"><i class="fas fa-music"></i></div>
+                                <h3 class="text-white font-bold">Du Hast</h3>
+                                <p class="text-gray-400 text-xs mb-3">Rammstein</p>
+                                
+                                <div class="bg-black/50 p-2 rounded text-left mb-1 flex justify-between items-center">
+                                    <span class="text-xs">Bad Bunny</span>
+                                    <button class="bg-red-600 text-[10px] px-2 py-1 rounded">Votar (50pts)</button>
+                                </div>
+                            </div>
+
+                            <!-- QR Wiki -->
+                            <h3 class="font-bold text-lg mb-3">Escáner Inteligente</h3>
+                            <div class="bg-black p-4 rounded-xl border border-dashed border-gray-600 flex flex-col items-center justify-center h-24 mb-3">
+                                <i class="fas fa-qrcode text-2xl text-gray-400 mb-1"></i>
+                                <p class="text-[10px] text-gray-500">Apunta a una máquina...</p>
+                            </div>
+                            
+                            <!-- Resultado Simulado -->
+                            <div class="bg-zinc-800 p-3 rounded-xl border-l-4 border-blue-500 flex gap-3 items-center">
+                                <div class="bg-black w-10 h-10 rounded flex items-center justify-center"><i class="fas fa-dumbbell text-blue-500"></i></div>
+                                <div>
+                                    <p class="text-[10px] text-blue-400 font-bold uppercase">Detectado</p>
+                                    <p class="font-bold text-sm">Prensa de Piernas</p>
+                                    <p class="text-[10px] text-gray-400">Ver Tutorial (15s)</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                `,
+                owner: `
+                 <div class="bg-gray-900 rounded-xl border border-gray-800 p-8 shadow-2xl h-[400px]">
+                    <div class="grid grid-cols-2 gap-8">
+                        <div>
+                            <h3 class="font-bold text-lg mb-4">Configuración Rockola</h3>
+                            <div class="mb-4">
+                                <label class="text-xs text-gray-400 block mb-1">Costo por Pedir Canción (Puntos)</label>
+                                <input type="number" value="50" class="bg-black border border-gray-700 text-white rounded p-2 w-full">
+                            </div>
+                            <div class="bg-red-900/20 p-4 rounded border border-red-800">
+                                <p class="text-xs text-red-400 font-bold mb-2">Lista Negra (Prohibidas)</p>
+                                <div class="flex gap-2 flex-wrap">
+                                    <span class="bg-black px-2 py-1 rounded text-xs border border-gray-700">Vallenato <i class="fas fa-times ml-1 cursor-pointer"></i></span>
+                                    <span class="bg-black px-2 py-1 rounded text-xs border border-gray-700">Canciones > 8min <i class="fas fa-times ml-1 cursor-pointer"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-lg mb-4">Aliados & Códigos QR</h3>
+                            <p class="text-sm text-gray-400 mb-4">Gestiona los descuentos locales para tus miembros.</p>
+                            <div class="bg-black p-3 rounded border border-gray-700 flex justify-between items-center mb-2">
+                                <div>
+                                    <p class="text-sm font-bold">Subway Centro</p>
+                                    <p class="text-xs text-green-500">Descuento: 15%</p>
+                                </div>
+                                <span class="text-green-500 text-xs bg-green-900/30 px-2 py-1 rounded">Activo</span>
+                            </div>
+                        </div>
+                    </div>
+                 </div>
+                `
+            },
+            ia: {
+                user: `
+                <div class="flex justify-center">
+                    <div class="iphone-mockup w-[320px] h-[650px] bg-black text-white overflow-hidden shadow-2xl border-blue-900">
+                        <div class="iphone-notch"></div>
+                        <div class="h-full overflow-y-auto pt-12 pb-4 px-4 bg-zinc-900">
+                            
+                            <!-- NutriSnap -->
+                            <div class="bg-zinc-800 p-4 rounded-xl border border-blue-500/30 mb-6 relative overflow-hidden">
+                                <div class="absolute top-0 right-0 bg-blue-600 text-[8px] font-bold px-2 py-1 rounded-bl text-white">GEMINI VISION</div>
+                                <h4 class="font-bold text-sm mb-2"><i class="fas fa-camera text-blue-400"></i> NutriSnap AI</h4>
+                                
+                                <div class="bg-black rounded p-2 border border-gray-700 flex gap-3 items-center">
+                                    <div class="w-12 h-12 bg-gray-800 rounded flex items-center justify-center text-[8px] text-gray-500">[FOTO PLATO]</div>
+                                    <div class="flex-1">
+                                        <p class="text-[10px] text-blue-400 font-bold animate-pulse">Analizando...</p>
+                                        <p class="text-xs font-bold">Pollo + Arroz + Brócoli</p>
+                                        <div class="flex gap-1 mt-1">
+                                            <span class="bg-gray-700 text-[8px] px-1 rounded">Prot: 35g</span>
+                                            <span class="bg-gray-700 text-[8px] px-1 rounded">Cal: 450</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button class="w-full bg-blue-600/20 text-blue-400 text-xs mt-2 py-1 rounded border border-blue-900">Registrar Comida</button>
+                            </div>
+
+                            <!-- Chat IA -->
+                            <div class="h-64 bg-black rounded-xl border border-gray-800 p-3 flex flex-col">
+                                <h4 class="font-bold text-sm mb-2 text-gray-400">Coach Inteligente</h4>
+                                <div class="flex-1 overflow-y-auto space-y-2 text-xs">
+                                    <div class="text-right"><span class="bg-blue-900 text-blue-100 px-2 py-1 rounded inline-block">Me duele la rodilla, ¿qué cardio hago?</span></div>
+                                    <div class="text-left"><span class="bg-zinc-800 text-gray-300 px-2 py-1 rounded inline-block border border-gray-700"><i class="fas fa-sparkles text-purple-500"></i> Evita saltos. Te recomiendo: <br>1. Elíptica (bajo impacto)<br>2. Battle Ropes<br>3. Natación</span></div>
+                                </div>
+                                <div class="mt-2 flex gap-1">
+                                    <input type="text" placeholder="Pregunta..." class="bg-zinc-900 w-full border border-gray-700 rounded text-xs px-2">
+                                    <button class="text-blue-500"><i class="fas fa-paper-plane"></i></button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                `,
+                owner: `
+                 <div class="bg-gray-900 rounded-xl border border-gray-800 p-8 shadow-2xl h-[450px]">
+                    <div class="border-l-4 border-red-500 bg-zinc-800 p-6 rounded mb-6">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h3 class="font-bold text-xl text-white flex items-center gap-2"><i class="fas fa-brain text-red-500"></i> Oráculo de Retención</h3>
+                                <p class="text-sm text-gray-400 mt-1">Gemini analiza patrones y predice quién va a cancelar.</p>
+                            </div>
+                            <span class="bg-red-600 text-white text-xs font-bold px-3 py-1 rounded animate-pulse">3 Riesgos Altos Detectados</span>
+                        </div>
+                    </div>
+
+                    <div class="space-y-3">
+                        <div class="bg-black p-4 rounded border border-gray-700 flex justify-between items-center">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center font-bold">PP</div>
+                                <div>
+                                    <p class="font-bold text-white">Pedro Perez</p>
+                                    <p class="text-xs text-red-400">Motivo: Asistencia bajó 80% este mes</p>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-red-600 font-bold text-xl">92% Riesgo</p>
+                                <button class="text-xs text-blue-400 hover:underline"><i class="fas fa-magic"></i> Generar WhatsApp de rescate</button>
+                            </div>
+                        </div>
+
+                        <!-- Mensaje Generado -->
+                        <div class="ml-12 bg-gray-800 p-3 rounded border border-gray-600 text-xs italic text-gray-300 relative">
+                            <div class="absolute -top-2 left-4 w-0 h-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-b-[8px] border-b-gray-600"></div>
+                            <span class="text-blue-400 font-bold not-italic">Sugerencia IA:</span> "Hola Pedro, la barra olímpica pregunta por ti. 💪 Te guardamos un batido gratis si vienes antes del viernes. ¿Te esperamos?"
+                        </div>
+                    </div>
+                 </div>
+                `
             }
-        });
+        };
 
-        // Lógica de Filtrado (La Matrix)
-        const filterBtns = document.querySelectorAll('.filter-btn');
-        const expCards = document.querySelectorAll('.exp-card');
+        // --- FUNCIONES DE LÓGICA ---
+        
+        // Función principal para cambiar Slides
+        function showSlide(slideId) {
+            // Ocultar todos
+            document.querySelectorAll('.slide').forEach(el => {
+                el.classList.add('hidden');
+                el.classList.remove('active');
+            });
 
-        filterBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                // 1. Gestionar clases de botones
-                filterBtns.forEach(b => {
-                    b.classList.remove('active', 'border-cyan-500', 'bg-cyan-500/10', 'text-cyan-400', 'shadow-[0_0_15px_rgba(6,182,212,0.3)]');
-                    b.classList.add('border-slate-800', 'bg-slate-900', 'text-slate-500');
-                });
+            // Mostrar el seleccionado
+            const activeSlide = document.getElementById(slideId);
+            activeSlide.classList.remove('hidden');
+            
+            // Pequeño hack para reiniciar la animación CSS
+            void activeSlide.offsetWidth; 
+            activeSlide.classList.add('active');
+
+            // Si es un slide interactivo, cargar el contenido por defecto (User)
+            if(views[slideId]) {
+                toggleView(slideId, 'user');
+            }
+        }
+
+        // Función para cambiar entre Vista Cliente / Vista Dueño
+        function toggleView(slideId, mode) {
+            const container = document.getElementById(slideId + '-content');
+            if(container && views[slideId][mode]) {
+                // Inyectar HTML
+                container.innerHTML = views[slideId][mode];
                 
-                // Activar botón clickeado
-                btn.classList.remove('border-slate-800', 'bg-slate-900', 'text-slate-500');
-                btn.classList.add('active', 'border-cyan-500', 'bg-cyan-500/10', 'text-cyan-400', 'shadow-[0_0_15px_rgba(6,182,212,0.3)]');
-
-                // 2. Filtrar tarjetas
-                const filterValue = btn.getAttribute('data-filter');
-
-                expCards.forEach(card => {
-                    if (filterValue === 'all' || card.getAttribute('data-category') === filterValue) {
-                        card.style.display = 'block';
-                        // Pequeña animación al reaparecer
-                        card.classList.add('fade-in');
-                        setTimeout(() => card.classList.remove('fade-in'), 500);
+                // Actualizar botones
+                const slideEl = document.getElementById(slideId);
+                const buttons = slideEl.querySelectorAll('.view-btn');
+                buttons.forEach(btn => {
+                    if(btn.textContent.toLowerCase().includes(mode === 'user' ? 'cliente' : 'dueño')) {
+                        btn.classList.add('bg-white', 'text-black');
+                        btn.classList.remove('text-gray-400');
                     } else {
-                        card.style.display = 'none';
+                        btn.classList.remove('bg-white', 'text-black');
+                        btn.classList.add('text-gray-400');
                     }
                 });
-            });
+            }
+        }
+
+        // Toggle menú móvil
+        document.querySelector('.fa-bars').addEventListener('click', () => {
+            const sidebar = document.querySelector('aside');
+            sidebar.classList.toggle('hidden');
+            sidebar.classList.toggle('absolute');
+            sidebar.classList.toggle('h-full');
+            sidebar.classList.toggle('w-full');
         });
 
-        // Menú Móvil
-        const menuBtn = document.getElementById('mobile-menu-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
-
-        menuBtn.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-        });
-        
-        // Cerrar menú al hacer click en un link
-        mobileMenu.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => {
-                mobileMenu.classList.add('hidden');
-            });
-        });
+        // Iniciar en intro
+        // showSlide('intro'); 
 
     </script>
 </body>

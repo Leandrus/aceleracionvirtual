@@ -3,572 +3,484 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QbrFit System - Presentación Oficial</title>
-    
-    <!-- Importamos Tailwind CSS para el diseño rápido y moderno -->
+    <title>QbrFit - Presentación Comercial</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Importamos Iconos de FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- Fuentes de Google -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
 
     <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #050505;
-            color: #ffffff;
-            overflow-x: hidden;
-        }
-
-        /* Efecto de fondo Carbono */
-        .bg-carbon {
-            background-color: #0a0a0a;
-            background-image: radial-gradient(#1a1a1a 15%, transparent 16%), radial-gradient(#1a1a1a 15%, transparent 16%);
-            background-size: 60px 60px;
-            background-position: 0 0, 30px 30px;
-        }
-
-        /* Scrollbar personalizada */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #000; 
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #333; 
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #dc2626; 
-        }
-
-        /* Animaciones */
-        .fade-in {
-            animation: fadeIn 0.5s ease-in-out;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .pulse-red {
-            box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.7);
-            animation: pulse-red 2s infinite;
-        }
-        @keyframes pulse-red {
-            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.7); }
-            70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(220, 38, 38, 0); }
-            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(220, 38, 38, 0); }
-        }
-
-        /* Toggle Switch personalizado */
-        .toggle-checkbox:checked {
-            right: 0;
-            border-color: #dc2626;
-        }
-        .toggle-checkbox:checked + .toggle-label {
-            background-color: #dc2626;
-        }
+        body { font-family: 'Inter', sans-serif; background-color: #000; color: white; }
         
-        .iphone-mockup {
-            border: 14px solid #1a1a1a;
-            border-radius: 50px;
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #111; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #dc2626; }
+
+        /* iPhone Mockup Responsive */
+        .iphone-frame {
+            border: 12px solid #1a1a1a;
+            border-radius: 40px;
             overflow: hidden;
             position: relative;
             background: #000;
+            width: 100%;
+            max-width: 340px;
+            height: 700px;
+            max-height: 80vh; /* Se ajusta a pantallas pequeñas */
+            margin: 0 auto;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
         }
         .iphone-notch {
-            position: absolute;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 120px;
-            height: 25px;
-            background: #1a1a1a;
-            border-bottom-left-radius: 12px;
-            border-bottom-right-radius: 12px;
-            z-index: 20;
+            position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+            width: 100px; height: 24px; background: #1a1a1a;
+            border-bottom-left-radius: 12px; border-bottom-right-radius: 12px; z-index: 20;
+        }
+
+        /* Animations */
+        .fade-in { animation: fadeIn 0.4s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Grid Pattern Background */
+        .bg-grid {
+            background-size: 40px 40px;
+            background-image: linear-gradient(to right, #222 1px, transparent 1px),
+                              linear-gradient(to bottom, #222 1px, transparent 1px);
+            background-position: center;
         }
     </style>
 </head>
-<body class="flex h-screen overflow-hidden">
+<body class="flex h-screen overflow-hidden bg-black selection:bg-red-600 selection:text-white">
 
-    <!-- SIDEBAR DE NAVEGACIÓN -->
-    <aside class="w-64 bg-black border-r border-gray-900 flex flex-col z-20 hidden md:flex">
-        <div class="p-6 border-b border-gray-900">
+    <!-- MOBILE HEADER -->
+    <div class="md:hidden fixed top-0 w-full bg-black/90 backdrop-blur-md border-b border-gray-800 z-50 p-4 flex justify-between items-center">
+        <h1 class="text-xl font-black italic tracking-tighter">QBR<span class="text-red-600">FIT</span></h1>
+        <button onclick="toggleSidebar()" class="text-white focus:outline-none">
+            <i class="fas fa-bars text-xl"></i>
+        </button>
+    </div>
+
+    <!-- SIDEBAR -->
+    <aside id="sidebar" class="fixed inset-y-0 left-0 transform -translate-x-full md:relative md:translate-x-0 w-64 bg-zinc-950 border-r border-zinc-800 flex flex-col transition-transform duration-300 z-40 pt-16 md:pt-0">
+        <div class="p-6 border-b border-zinc-800 hidden md:block">
             <h1 class="text-3xl font-black italic tracking-tighter">QBR<span class="text-red-600">FIT</span></h1>
-            <p class="text-xs text-gray-500 mt-1 uppercase tracking-widest">System v3.0</p>
+            <p class="text-xs text-gray-500 mt-1 uppercase tracking-widest">System v4.0</p>
         </div>
 
-        <nav class="flex-1 overflow-y-auto py-4">
-            <div class="px-4 mb-2 text-[10px] font-bold text-gray-600 uppercase">Introducción</div>
-            <button onclick="showSlide('intro')" class="nav-btn w-full text-left px-6 py-3 text-gray-400 hover:text-white hover:bg-gray-900 transition-all flex items-center gap-3 border-l-4 border-transparent hover:border-red-600">
-                <i class="fas fa-home"></i> Visión General
+        <nav class="flex-1 overflow-y-auto p-4 space-y-1">
+            <div class="px-2 mb-2 mt-2 text-[10px] font-bold text-gray-500 uppercase tracking-wider">Inicio</div>
+            <button onclick="renderModule('intro')" class="nav-item w-full text-left px-4 py-3 rounded-lg text-sm text-gray-400 hover:text-white hover:bg-zinc-900 transition flex items-center gap-3">
+                <i class="fas fa-home w-5"></i> Visión General
             </button>
 
-            <div class="px-4 mt-6 mb-2 text-[10px] font-bold text-gray-600 uppercase">Gestión Básica</div>
-            <button onclick="showSlide('gestion')" class="nav-btn w-full text-left px-6 py-3 text-gray-400 hover:text-white hover:bg-gray-900 transition-all flex items-center gap-3 border-l-4 border-transparent hover:border-red-600">
-                <i class="fas fa-chart-line"></i> Dashboard & Pagos
+            <div class="px-2 mb-2 mt-6 text-[10px] font-bold text-gray-500 uppercase tracking-wider">Operación</div>
+            <button onclick="renderModule('dashboard')" class="nav-item w-full text-left px-4 py-3 rounded-lg text-sm text-gray-400 hover:text-white hover:bg-zinc-900 transition flex items-center gap-3">
+                <i class="fas fa-chart-pie w-5"></i> Dashboard & Pagos
             </button>
-            <button onclick="showSlide('agenda')" class="nav-btn w-full text-left px-6 py-3 text-gray-400 hover:text-white hover:bg-gray-900 transition-all flex items-center gap-3 border-l-4 border-transparent hover:border-red-600">
-                <i class="fas fa-calendar-alt"></i> Clases & Rutinas
+            <button onclick="renderModule('agenda')" class="nav-item w-full text-left px-4 py-3 rounded-lg text-sm text-gray-400 hover:text-white hover:bg-zinc-900 transition flex items-center gap-3">
+                <i class="fas fa-calendar-check w-5"></i> Clases & Rutinas
             </button>
 
-            <div class="px-4 mt-6 mb-2 text-[10px] font-bold text-red-500 uppercase">Diferenciadores</div>
-            <button onclick="showSlide('social')" class="nav-btn w-full text-left px-6 py-3 text-gray-400 hover:text-white hover:bg-gray-900 transition-all flex items-center gap-3 border-l-4 border-transparent hover:border-red-600">
-                <i class="fas fa-users"></i> Comunidad & Liga
+            <div class="px-2 mb-2 mt-6 text-[10px] font-bold text-red-500 uppercase tracking-wider">Crecimiento</div>
+            <button onclick="renderModule('social')" class="nav-item w-full text-left px-4 py-3 rounded-lg text-sm text-gray-400 hover:text-white hover:bg-zinc-900 transition flex items-center gap-3">
+                <i class="fas fa-trophy w-5"></i> Liga & Social
             </button>
-            <button onclick="showSlide('monetizacion')" class="nav-btn w-full text-left px-6 py-3 text-gray-400 hover:text-white hover:bg-gray-900 transition-all flex items-center gap-3 border-l-4 border-transparent hover:border-red-600">
-                <i class="fas fa-store"></i> Marketplace
+            <button onclick="renderModule('marketplace')" class="nav-item w-full text-left px-4 py-3 rounded-lg text-sm text-gray-400 hover:text-white hover:bg-zinc-900 transition flex items-center gap-3">
+                <i class="fas fa-shopping-cart w-5"></i> Marketplace
             </button>
-            <button onclick="showSlide('experiencia')" class="nav-btn w-full text-left px-6 py-3 text-gray-400 hover:text-white hover:bg-gray-900 transition-all flex items-center gap-3 border-l-4 border-transparent hover:border-red-600">
-                <i class="fas fa-music"></i> Rockola & QR
+            <button onclick="renderModule('experience')" class="nav-item w-full text-left px-4 py-3 rounded-lg text-sm text-gray-400 hover:text-white hover:bg-zinc-900 transition flex items-center gap-3">
+                <i class="fas fa-music w-5"></i> Rockola & QR
             </button>
-            
-            <div class="px-4 mt-6 mb-2 text-[10px] font-bold text-blue-500 uppercase flex items-center gap-1"><i class="fas fa-robot"></i> Inteligencia Artificial</div>
-            <button onclick="showSlide('ia')" class="nav-btn w-full text-left px-6 py-3 text-gray-400 hover:text-white hover:bg-gray-900 transition-all flex items-center gap-3 border-l-4 border-transparent hover:border-blue-500">
-                <i class="fas fa-brain"></i> Gemini Coach
+
+            <div class="px-2 mb-2 mt-6 text-[10px] font-bold text-blue-500 uppercase tracking-wider">Futuro (IA)</div>
+            <button onclick="renderModule('ai')" class="nav-item w-full text-left px-4 py-3 rounded-lg text-sm text-gray-400 hover:text-white hover:bg-zinc-900 transition flex items-center gap-3">
+                <i class="fas fa-brain w-5"></i> Gemini Coach
             </button>
         </nav>
-
-        <div class="p-4 border-t border-gray-900">
-            <div class="flex items-center gap-3">
-                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Felix" class="w-10 h-10 rounded-full bg-gray-800">
-                <div>
-                    <p class="text-sm font-bold text-white">Usuario Demo</p>
-                    <p class="text-xs text-gray-500">Dueño de Gimnasio</p>
+        
+        <div class="p-4 border-t border-zinc-800">
+            <div class="flex items-center gap-3 bg-zinc-900 p-2 rounded-lg">
+                <div class="w-8 h-8 rounded bg-red-600 flex items-center justify-center font-bold">D</div>
+                <div class="overflow-hidden">
+                    <p class="text-sm font-bold truncate">Dueño Gym</p>
+                    <p class="text-xs text-gray-500">Admin</p>
                 </div>
             </div>
         </div>
     </aside>
 
-    <!-- ÁREA PRINCIPAL DE CONTENIDO -->
-    <main class="flex-1 bg-carbon relative flex flex-col h-full overflow-hidden">
-        
-        <!-- HEADER MÓVIL (Solo visible en pantallas pequeñas) -->
-        <div class="md:hidden bg-black p-4 flex justify-between items-center border-b border-gray-800">
-            <h1 class="text-xl font-black italic">QBR<span class="text-red-600">FIT</span></h1>
-            <button class="text-white"><i class="fas fa-bars"></i></button>
-        </div>
+    <!-- MAIN CONTENT -->
+    <main class="flex-1 flex flex-col h-full relative overflow-hidden bg-grid">
+        <!-- Overlay for mobile sidebar -->
+        <div id="overlay" onclick="toggleSidebar()" class="fixed inset-0 bg-black/50 z-30 hidden md:hidden"></div>
 
-        <!-- CONTENEDOR DE SLIDES -->
-        <div id="slide-container" class="flex-1 overflow-y-auto p-6 md:p-12 relative">
+        <!-- Header Dynamic -->
+        <header class="p-6 pt-20 md:pt-8 border-b border-zinc-800 bg-black/80 backdrop-blur flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+            <div>
+                <h2 id="page-title" class="text-2xl font-bold text-white flex items-center gap-2">Visión General</h2>
+                <p id="page-desc" class="text-sm text-gray-400 mt-1">Bienvenido al ecosistema QbrFit.</p>
+            </div>
             
-            <!-- SLIDE 1: INTRODUCCIÓN -->
-            <section id="intro" class="slide active fade-in max-w-5xl mx-auto h-full flex flex-col justify-center">
-                <div class="grid md:grid-cols-2 gap-12 items-center">
-                    <div>
-                        <span class="bg-red-600 text-white text-xs font-bold px-2 py-1 rounded uppercase tracking-wider mb-4 inline-block">Propuesta 2024</span>
-                        <h1 class="text-5xl md:text-7xl font-black leading-tight mb-6">MÁS QUE ENTRENAR, <br><span class="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-red-800">PERTENECER.</span></h1>
-                        <p class="text-xl text-gray-400 mb-8 leading-relaxed">
-                            El sistema operativo definitivo para gimnasios modernos. Detén las cancelaciones, crea una tribu leal y genera ingresos pasivos.
-                        </p>
-                        <div class="flex gap-4">
-                            <button onclick="showSlide('gestion')" class="bg-red-600 text-white font-bold py-4 px-8 rounded hover:bg-red-700 transition-colors shadow-lg shadow-red-900/50 flex items-center gap-2">
-                                Ver Demo del Sistema <i class="fas fa-arrow-right"></i>
-                            </button>
-                            <button class="border border-gray-600 text-gray-300 font-bold py-4 px-8 rounded hover:bg-gray-800 transition-colors">
-                                Ver Modelo de Negocio
-                            </button>
-                        </div>
-                    </div>
-                    <div class="relative">
-                        <div class="absolute -inset-1 bg-gradient-to-r from-red-600 to-red-900 rounded-2xl blur opacity-30"></div>
-                        <div class="relative bg-gray-900 p-6 rounded-2xl border border-gray-800">
-                            <div class="flex items-center gap-4 mb-6 border-b border-gray-800 pb-4">
-                                <div class="w-12 h-12 bg-red-600 rounded-full flex items-center justify-center text-xl font-bold">VS</div>
-                                <div>
-                                    <h3 class="font-bold text-white text-lg">El Problema del Gym Tradicional</h3>
-                                    <p class="text-sm text-gray-400">¿Por qué pierdes clientes?</p>
-                                </div>
-                            </div>
-                            <ul class="space-y-4">
-                                <li class="flex items-start gap-3">
-                                    <i class="fas fa-times-circle text-red-500 mt-1"></i>
-                                    <div>
-                                        <p class="font-bold text-white">Guerra de Precios</p>
-                                        <p class="text-sm text-gray-500">Siempre habrá un gym más barato cerca.</p>
-                                    </div>
-                                </li>
-                                <li class="flex items-start gap-3">
-                                    <i class="fas fa-times-circle text-red-500 mt-1"></i>
-                                    <div>
-                                        <p class="font-bold text-white">Soledad del Cliente</p>
-                                        <p class="text-sm text-gray-500">Si no hacen amigos, dejan de ir al mes 2.</p>
-                                    </div>
-                                </li>
-                                <li class="flex items-start gap-3">
-                                    <i class="fas fa-times-circle text-red-500 mt-1"></i>
-                                    <div>
-                                        <p class="font-bold text-white">Falta de Innovación</p>
-                                        <p class="text-sm text-gray-500">Papel, lápiz y máquinas viejas no retienen.</p>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </section>
+            <!-- View Toggle (Hidden on Intro) -->
+            <div id="view-toggle" class="hidden bg-zinc-900 p-1 rounded-lg border border-zinc-800">
+                <button onclick="setRole('client')" id="btn-client" class="px-4 py-2 rounded-md text-xs font-bold transition-all bg-red-600 text-white shadow-lg">
+                    <i class="fas fa-mobile-alt mr-2"></i>APP CLIENTE
+                </button>
+                <button onclick="setRole('owner')" id="btn-owner" class="px-4 py-2 rounded-md text-xs font-bold transition-all text-gray-400 hover:text-white">
+                    <i class="fas fa-desktop mr-2"></i>PANEL DUEÑO
+                </button>
+            </div>
+        </header>
 
-            <!-- SLIDE 2: GESTIÓN BÁSICA -->
-            <section id="gestion" class="slide hidden fade-in max-w-6xl mx-auto">
-                <div class="flex justify-between items-end mb-8">
-                    <div>
-                        <h2 class="text-3xl font-bold mb-2 flex items-center gap-3"><i class="fas fa-chart-line text-red-600"></i> Gestión & Finanzas</h2>
-                        <p class="text-gray-400">Lo básico que necesitas: Pagos automáticos y control de acceso.</p>
-                    </div>
-                    <!-- Toggle Switch -->
-                    <div class="bg-gray-800 p-1 rounded-lg flex">
-                        <button onclick="toggleView('gestion', 'user')" class="view-btn active px-4 py-2 rounded text-xs font-bold bg-white text-black transition-all">Vista Cliente</button>
-                        <button onclick="toggleView('gestion', 'owner')" class="view-btn px-4 py-2 rounded text-xs font-bold text-gray-400 hover:text-white transition-all">Vista Dueño</button>
-                    </div>
-                </div>
-
-                <div class="grid md:grid-cols-2 gap-12">
-                    <!-- CONTENIDO CAMBIANTE -->
-                    <div id="gestion-content" class="md:col-span-2">
-                        <!-- Se inyecta con JS -->
-                    </div>
-                </div>
-            </section>
-
-            <!-- SLIDE 3: AGENDA -->
-            <section id="agenda" class="slide hidden fade-in max-w-6xl mx-auto">
-                <div class="flex justify-between items-end mb-8">
-                    <div>
-                        <h2 class="text-3xl font-bold mb-2 flex items-center gap-3"><i class="fas fa-calendar-alt text-red-600"></i> Clases & Rutinas</h2>
-                        <p class="text-gray-400">Olvídate del papel. Rutinas digitales y reservas de clases.</p>
-                    </div>
-                    <div class="bg-gray-800 p-1 rounded-lg flex">
-                        <button onclick="toggleView('agenda', 'user')" class="view-btn active px-4 py-2 rounded text-xs font-bold bg-white text-black">Vista Cliente</button>
-                        <button onclick="toggleView('agenda', 'owner')" class="view-btn px-4 py-2 rounded text-xs font-bold text-gray-400 hover:text-white">Vista Dueño</button>
-                    </div>
-                </div>
-                <div id="agenda-content" class="w-full"></div>
-            </section>
-
-            <!-- SLIDE 4: SOCIAL (COMUNIDAD) -->
-            <section id="social" class="slide hidden fade-in max-w-6xl mx-auto">
-                <div class="flex justify-between items-end mb-8">
-                    <div>
-                        <h2 class="text-3xl font-bold mb-2 flex items-center gap-3"><i class="fas fa-users text-red-600"></i> Comunidad & Liga</h2>
-                        <p class="text-gray-400">Creamos "FOMO" (Miedo a perderse algo). La competencia retiene.</p>
-                    </div>
-                    <div class="bg-gray-800 p-1 rounded-lg flex">
-                        <button onclick="toggleView('social', 'user')" class="view-btn active px-4 py-2 rounded text-xs font-bold bg-white text-black">Vista Cliente</button>
-                        <button onclick="toggleView('social', 'owner')" class="view-btn px-4 py-2 rounded text-xs font-bold text-gray-400 hover:text-white">Vista Dueño</button>
-                    </div>
-                </div>
-                <div id="social-content" class="w-full"></div>
-            </section>
-
-            <!-- SLIDE 5: MONETIZACIÓN -->
-            <section id="monetizacion" class="slide hidden fade-in max-w-6xl mx-auto">
-                <div class="flex justify-between items-end mb-8">
-                    <div>
-                        <h2 class="text-3xl font-bold mb-2 flex items-center gap-3"><i class="fas fa-store text-red-600"></i> Marketplace Digital</h2>
-                        <p class="text-gray-400">Vende programas y dietas mientras duermes. Ingreso pasivo.</p>
-                    </div>
-                    <div class="bg-gray-800 p-1 rounded-lg flex">
-                        <button onclick="toggleView('monetizacion', 'user')" class="view-btn active px-4 py-2 rounded text-xs font-bold bg-white text-black">Vista Cliente</button>
-                        <button onclick="toggleView('monetizacion', 'owner')" class="view-btn px-4 py-2 rounded text-xs font-bold text-gray-400 hover:text-white">Vista Dueño</button>
-                    </div>
-                </div>
-                <div id="monetizacion-content" class="w-full"></div>
-            </section>
-
-            <!-- SLIDE 6: EXPERIENCIA (ROCKOLA) -->
-            <section id="experiencia" class="slide hidden fade-in max-w-6xl mx-auto">
-                <div class="flex justify-between items-end mb-8">
-                    <div>
-                        <h2 class="text-3xl font-bold mb-2 flex items-center gap-3"><i class="fas fa-music text-red-600"></i> Rockola & Wiki QR</h2>
-                        <p class="text-gray-400">Democracia musical y educación automatizada en máquinas.</p>
-                    </div>
-                    <div class="bg-gray-800 p-1 rounded-lg flex">
-                        <button onclick="toggleView('experiencia', 'user')" class="view-btn active px-4 py-2 rounded text-xs font-bold bg-white text-black">Vista Cliente</button>
-                        <button onclick="toggleView('experiencia', 'owner')" class="view-btn px-4 py-2 rounded text-xs font-bold text-gray-400 hover:text-white">Vista Dueño</button>
-                    </div>
-                </div>
-                <div id="experiencia-content" class="w-full"></div>
-            </section>
-
-            <!-- SLIDE 7: IA (GEMINI) -->
-            <section id="ia" class="slide hidden fade-in max-w-6xl mx-auto">
-                <div class="flex justify-between items-end mb-8">
-                    <div>
-                        <h2 class="text-3xl font-bold mb-2 flex items-center gap-3 text-blue-500"><i class="fas fa-brain"></i> Gemini AI Coach</h2>
-                        <p class="text-gray-400">El futuro hoy. Visión computacional y predicción de abandono.</p>
-                    </div>
-                    <div class="bg-gray-800 p-1 rounded-lg flex">
-                        <button onclick="toggleView('ia', 'user')" class="view-btn active px-4 py-2 rounded text-xs font-bold bg-white text-black">Vista Cliente</button>
-                        <button onclick="toggleView('ia', 'owner')" class="view-btn px-4 py-2 rounded text-xs font-bold text-gray-400 hover:text-white">Vista Dueño</button>
-                    </div>
-                </div>
-                <div id="ia-content" class="w-full"></div>
-            </section>
-
+        <!-- Content Area -->
+        <div id="content-area" class="flex-1 overflow-y-auto p-4 md:p-8">
+            <!-- Content Injected via JS -->
         </div>
     </main>
 
-    <!-- SCRIPTS PARA LA LÓGICA DE LA APP -->
     <script>
-        // --- BASE DE DATOS DE VISTAS (HTML PURO PARA RENDERIZADO) ---
-        const views = {
-            gestion: {
-                user: `
-                    <div class="flex justify-center">
-                        <div class="iphone-mockup w-[320px] h-[650px] bg-black text-white overflow-hidden shadow-2xl">
-                            <div class="iphone-notch"></div>
-                            <div class="h-full overflow-y-auto pt-12 pb-4 px-4 bg-zinc-900">
-                                <div class="flex justify-between items-center mb-6">
-                                    <div>
-                                        <h3 class="font-bold text-lg">Hola, Carlos</h3>
-                                        <p class="text-xs text-green-500 flex items-center gap-1"><i class="fas fa-check-circle"></i> Membresía Activa</p>
-                                    </div>
-                                    <div class="w-10 h-10 rounded-full bg-red-600 flex items-center justify-center font-bold">CR</div>
+        // --- DATA & TEMPLATES ---
+        const contentData = {
+            intro: {
+                title: "Visión General",
+                desc: "Transforma tu gimnasio en una comunidad de alto rendimiento.",
+                hasToggle: false,
+                html: `
+                <div class="h-full flex flex-col justify-center max-w-5xl mx-auto fade-in">
+                    <div class="grid lg:grid-cols-2 gap-12 items-center">
+                        <div class="text-center lg:text-left">
+                            <span class="bg-red-900/30 text-red-500 border border-red-900 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-6 inline-block">Propuesta de Valor</span>
+                            <h1 class="text-4xl md:text-6xl font-black leading-tight mb-6">NO VENDAS MÁQUINAS.<br><span class="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-red-800">VENDE PERTENENCIA.</span></h1>
+                            <p class="text-lg text-gray-400 mb-8 leading-relaxed">
+                                El software tradicional solo cobra. <b>QbrFit</b> crea comunidad, automatiza tus ingresos y usa Inteligencia Artificial para que nadie cancele su membresía.
+                            </p>
+                            <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                                <button onclick="renderModule('dashboard')" class="bg-red-600 text-white font-bold py-4 px-8 rounded-xl hover:bg-red-700 transition shadow-lg shadow-red-900/40 flex items-center justify-center gap-2">
+                                    Explorar Demo <i class="fas fa-arrow-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Cards Grid -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div class="bg-zinc-900 p-6 rounded-2xl border border-zinc-800 hover:border-red-600 transition duration-300">
+                                <div class="w-12 h-12 bg-zinc-800 rounded-full flex items-center justify-center mb-4 text-red-500 text-xl"><i class="fas fa-users"></i></div>
+                                <h3 class="font-bold text-white text-lg mb-2">Comunidad Tribal</h3>
+                                <p class="text-sm text-gray-400">Red social interna y ligas competitivas entre gimnasios.</p>
+                            </div>
+                            <div class="bg-zinc-900 p-6 rounded-2xl border border-zinc-800 hover:border-red-600 transition duration-300">
+                                <div class="w-12 h-12 bg-zinc-800 rounded-full flex items-center justify-center mb-4 text-green-500 text-xl"><i class="fas fa-dollar-sign"></i></div>
+                                <h3 class="font-bold text-white text-lg mb-2">Ingresos Pasivos</h3>
+                                <p class="text-sm text-gray-400">Marketplace de dietas y rutinas. Gana dinero durmiendo.</p>
+                            </div>
+                            <div class="bg-zinc-900 p-6 rounded-2xl border border-zinc-800 hover:border-red-600 transition duration-300">
+                                <div class="w-12 h-12 bg-zinc-800 rounded-full flex items-center justify-center mb-4 text-blue-500 text-xl"><i class="fas fa-brain"></i></div>
+                                <h3 class="font-bold text-white text-lg mb-2">IA Gemini</h3>
+                                <p class="text-sm text-gray-400">Visión artificial para dietas y predicción de cancelaciones.</p>
+                            </div>
+                             <div class="bg-zinc-900 p-6 rounded-2xl border border-zinc-800 hover:border-red-600 transition duration-300">
+                                <div class="w-12 h-12 bg-zinc-800 rounded-full flex items-center justify-center mb-4 text-purple-500 text-xl"><i class="fas fa-music"></i></div>
+                                <h3 class="font-bold text-white text-lg mb-2">Experiencia</h3>
+                                <p class="text-sm text-gray-400">Rockola colaborativa y tutoriales QR en máquinas.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                `
+            },
+            dashboard: {
+                title: "Dashboard & Finanzas",
+                desc: "Control total de acceso y flujo de caja.",
+                hasToggle: true,
+                client: `
+                <div class="flex justify-center fade-in">
+                    <div class="iphone-frame">
+                        <div class="iphone-notch"></div>
+                        <div class="h-full overflow-y-auto bg-zinc-900 pt-10 pb-4 px-4 scrollbar-hide">
+                            <div class="flex justify-between items-center mb-6 mt-4">
+                                <div>
+                                    <h3 class="font-bold text-white text-lg">Hola, Carlos</h3>
+                                    <span class="bg-green-500/20 text-green-500 text-[10px] px-2 py-1 rounded border border-green-500/30">Membresía Activa</span>
                                 </div>
-                                
-                                <!-- QR Card -->
-                                <div class="bg-gradient-to-br from-zinc-800 to-black p-4 rounded-xl border border-red-600 mb-4 text-center">
-                                    <p class="text-xs text-gray-400 mb-2">TU ACCESO</p>
-                                    <div class="bg-white p-2 w-32 h-32 mx-auto rounded mb-2">
-                                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=QbrFitAccess" alt="QR">
-                                    </div>
-                                    <p class="text-xs text-gray-500">Vence: 15 Oct</p>
-                                </div>
+                                <div class="w-10 h-10 bg-gray-700 rounded-full border border-gray-600 flex items-center justify-center">CR</div>
+                            </div>
 
-                                <div class="grid grid-cols-2 gap-3 mb-4">
-                                    <div class="bg-black p-3 rounded-xl border border-gray-800 text-center">
-                                        <p class="text-gray-400 text-xs">Asistencias</p>
-                                        <p class="text-xl font-bold">12/30</p>
-                                    </div>
-                                    <div class="bg-black p-3 rounded-xl border border-gray-800 text-center">
-                                        <p class="text-gray-400 text-xs">GymPoints</p>
-                                        <p class="text-xl font-bold text-yellow-500">450</p>
-                                    </div>
+                            <!-- QR PASS -->
+                            <div class="bg-gradient-to-br from-red-900 to-black p-6 rounded-2xl border border-red-800 text-center mb-6 relative overflow-hidden shadow-2xl shadow-red-900/20">
+                                <div class="absolute top-0 right-0 p-2 opacity-50"><i class="fas fa-wifi text-white"></i></div>
+                                <p class="text-xs text-red-200 uppercase tracking-widest mb-4">Pase de Acceso</p>
+                                <div class="bg-white p-2 w-32 h-32 mx-auto rounded-lg mb-4">
+                                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=QbrFitAccess" class="w-full h-full" alt="QR">
+                                </div>
+                                <p class="text-xs text-gray-400">Vence: 15 Oct 2024</p>
+                            </div>
+
+                            <div class="grid grid-cols-2 gap-3 mb-4">
+                                <div class="bg-black p-4 rounded-xl border border-zinc-800">
+                                    <p class="text-gray-500 text-xs mb-1">Asistencias</p>
+                                    <p class="text-2xl font-bold text-white">12<span class="text-sm text-gray-600">/30</span></p>
+                                </div>
+                                <div class="bg-black p-4 rounded-xl border border-zinc-800">
+                                    <p class="text-gray-500 text-xs mb-1">Puntos</p>
+                                    <p class="text-2xl font-bold text-yellow-500">450</p>
                                 </div>
                             </div>
                         </div>
                     </div>
-                `,
+                </div>`,
                 owner: `
-                    <div class="bg-gray-900 rounded-xl border border-gray-800 p-8 shadow-2xl">
-                        <div class="flex justify-between items-center mb-8 pb-4 border-b border-gray-800">
-                            <h3 class="text-2xl font-bold">Panel Administrativo</h3>
-                            <button class="bg-red-600 text-white px-4 py-2 rounded text-sm font-bold hover:bg-red-700">Exportar Reporte</button>
+                <div class="max-w-6xl mx-auto fade-in">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+                        <div class="bg-zinc-900 p-6 rounded-xl border-l-4 border-red-600 shadow-lg">
+                            <p class="text-gray-500 text-xs uppercase font-bold">Ingresos Hoy</p>
+                            <p class="text-3xl font-bold text-white mt-1">$450.00</p>
+                            <p class="text-xs text-green-500 mt-2"><i class="fas fa-arrow-up"></i> 12% vs ayer</p>
                         </div>
-
-                        <!-- KPIs -->
-                        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-                            <div class="bg-black p-6 rounded-lg border-l-4 border-red-600">
-                                <p class="text-gray-500 text-xs uppercase mb-1">Ingresos Hoy</p>
-                                <p class="text-3xl font-bold">$450.00</p>
-                            </div>
-                            <div class="bg-black p-6 rounded-lg border-l-4 border-blue-600">
-                                <p class="text-gray-500 text-xs uppercase mb-1">Miembros Activos</p>
-                                <p class="text-3xl font-bold">142</p>
-                            </div>
-                            <div class="bg-black p-6 rounded-lg border-l-4 border-green-500">
-                                <p class="text-gray-500 text-xs uppercase mb-1">Asistencia Real</p>
-                                <p class="text-3xl font-bold">34 <span class="text-sm font-normal text-gray-500">/ 100</span></p>
-                            </div>
-                             <div class="bg-black p-6 rounded-lg border-l-4 border-yellow-500">
-                                <p class="text-gray-500 text-xs uppercase mb-1">Cuentas por Cobrar</p>
-                                <p class="text-3xl font-bold text-yellow-500">$120</p>
-                            </div>
+                        <div class="bg-zinc-900 p-6 rounded-xl border-l-4 border-blue-600 shadow-lg">
+                            <p class="text-gray-500 text-xs uppercase font-bold">Activos</p>
+                            <p class="text-3xl font-bold text-white mt-1">142</p>
+                            <p class="text-xs text-gray-400 mt-2">Miembros Totales</p>
                         </div>
+                        <div class="bg-zinc-900 p-6 rounded-xl border-l-4 border-yellow-500 shadow-lg">
+                            <p class="text-gray-500 text-xs uppercase font-bold">Por Cobrar</p>
+                            <p class="text-3xl font-bold text-yellow-500 mt-1">$120</p>
+                            <p class="text-xs text-gray-400 mt-2">3 usuarios vencidos</p>
+                        </div>
+                        <div class="bg-zinc-900 p-6 rounded-xl border-l-4 border-green-500 shadow-lg">
+                            <p class="text-gray-500 text-xs uppercase font-bold">Aforo Real</p>
+                            <p class="text-3xl font-bold text-white mt-1">34</p>
+                            <p class="text-xs text-green-500 mt-2">● En vivo</p>
+                        </div>
+                    </div>
 
-                        <!-- Tabla Live -->
-                        <div class="bg-black rounded-lg border border-gray-800 overflow-hidden">
-                            <div class="p-4 bg-gray-800 border-b border-gray-700 font-bold flex justify-between">
-                                <span>Últimos Accesos (Torno)</span>
-                                <span class="text-green-500 text-xs animate-pulse">● En Vivo</span>
-                            </div>
+                    <div class="bg-zinc-900 rounded-xl border border-zinc-800 overflow-hidden shadow-xl">
+                        <div class="p-6 border-b border-zinc-800 flex justify-between items-center bg-zinc-900/50">
+                            <h3 class="font-bold text-lg">Registro de Acceso (Torno)</h3>
+                            <button class="text-xs bg-zinc-800 hover:bg-zinc-700 px-3 py-1 rounded transition">Ver Historial</button>
+                        </div>
+                        <div class="overflow-x-auto">
                             <table class="w-full text-left text-sm text-gray-400">
-                                <thead class="bg-gray-900 text-xs uppercase">
+                                <thead class="bg-black text-xs uppercase">
                                     <tr>
                                         <th class="p-4">Hora</th>
                                         <th class="p-4">Usuario</th>
+                                        <th class="p-4">Membresía</th>
                                         <th class="p-4">Estado</th>
-                                        <th class="p-4">Acción</th>
                                     </tr>
                                 </thead>
-                                <tbody class="divide-y divide-gray-800">
-                                    <tr>
+                                <tbody class="divide-y divide-zinc-800">
+                                    <tr class="hover:bg-zinc-800/50 transition">
                                         <td class="p-4">10:42 AM</td>
                                         <td class="p-4 font-bold text-white">Maria Gonzalez</td>
-                                        <td class="p-4 text-green-500">Al día</td>
-                                        <td class="p-4"><span class="bg-green-900 text-green-300 px-2 py-1 rounded text-xs">Permitido</span></td>
+                                        <td class="p-4"><span class="text-green-500">Activa</span></td>
+                                        <td class="p-4"><span class="bg-green-900/30 text-green-400 px-2 py-1 rounded text-xs border border-green-900">Permitido</span></td>
                                     </tr>
-                                    <tr>
+                                    <tr class="hover:bg-zinc-800/50 transition">
                                         <td class="p-4">10:40 AM</td>
                                         <td class="p-4 font-bold text-white">Juan Perez</td>
-                                        <td class="p-4 text-red-500">Vencido (2 días)</td>
-                                        <td class="p-4"><span class="bg-red-900 text-red-300 px-2 py-1 rounded text-xs">Denegado</span></td>
+                                        <td class="p-4"><span class="text-red-500">Vencida (-2 días)</span></td>
+                                        <td class="p-4"><span class="bg-red-900/30 text-red-400 px-2 py-1 rounded text-xs border border-red-900">Denegado</span></td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
                     </div>
-                `
+                </div>`
             },
             agenda: {
-                user: `
-                 <div class="flex justify-center">
-                    <div class="iphone-mockup w-[320px] h-[650px] bg-black text-white overflow-hidden shadow-2xl">
+                title: "Agenda & Rutinas",
+                desc: "Reservas de clases y seguimiento de entrenamiento.",
+                hasToggle: true,
+                client: `
+                <div class="flex justify-center fade-in">
+                    <div class="iphone-frame">
                         <div class="iphone-notch"></div>
-                        <div class="h-full overflow-y-auto pt-12 pb-4 px-4 bg-zinc-900">
-                            <h3 class="font-bold text-xl mb-4">Agenda de Hoy</h3>
+                        <div class="h-full overflow-y-auto bg-zinc-900 pt-10 pb-4 px-4 scrollbar-hide">
+                            <h3 class="font-bold text-white text-lg mb-4 mt-2">Clases de Hoy</h3>
                             
-                            <!-- Clase 1 -->
-                            <div class="bg-zinc-800 p-4 rounded-xl border-l-4 border-red-600 mb-3 flex gap-3">
-                                <div class="text-center">
-                                    <p class="font-bold text-lg">09:00</p>
-                                    <p class="text-xs text-gray-500">AM</p>
+                            <!-- Class Item -->
+                            <div class="bg-zinc-800 p-3 rounded-xl border-l-4 border-red-600 mb-3 flex gap-3 items-center">
+                                <div class="text-center min-w-[50px]">
+                                    <p class="font-bold text-white">09:00</p>
+                                    <p class="text-[10px] text-gray-500">AM</p>
                                 </div>
                                 <div class="flex-1">
-                                    <p class="font-bold text-red-500">CrossFit WOD</p>
+                                    <p class="font-bold text-red-500 text-sm">CrossFit WOD</p>
                                     <p class="text-xs text-gray-400">Coach Miguel</p>
-                                    <div class="w-full bg-gray-700 h-1 mt-2 rounded"><div class="bg-red-600 w-3/4 h-1 rounded"></div></div>
-                                    <p class="text-[10px] text-gray-500 mt-1">4 cupos libres</p>
+                                    <div class="flex items-center gap-1 mt-1">
+                                        <div class="w-full bg-gray-700 h-1 rounded"><div class="bg-red-600 w-3/4 h-1 rounded"></div></div>
+                                        <span class="text-[8px] text-gray-400">4 libres</span>
+                                    </div>
                                 </div>
-                                <button class="bg-red-600 text-white text-xs px-2 rounded h-8 self-center">Reservar</button>
+                                <button class="bg-red-600 text-white text-[10px] font-bold px-3 py-1.5 rounded-lg">Reservar</button>
                             </div>
-
-                             <!-- Clase 2 -->
-                            <div class="bg-zinc-800 p-4 rounded-xl border-l-4 border-gray-600 mb-3 flex gap-3 opacity-60">
-                                <div class="text-center">
-                                    <p class="font-bold text-lg">10:00</p>
-                                    <p class="text-xs text-gray-500">AM</p>
+                            
+                            <!-- Class Item Disabled -->
+                            <div class="bg-zinc-800 p-3 rounded-xl border-l-4 border-gray-600 mb-6 flex gap-3 items-center opacity-60">
+                                <div class="text-center min-w-[50px]">
+                                    <p class="font-bold text-white">10:30</p>
+                                    <p class="text-[10px] text-gray-500">AM</p>
                                 </div>
                                 <div class="flex-1">
-                                    <p class="font-bold text-white">Yoga Flex</p>
+                                    <p class="font-bold text-white text-sm">Yoga Flex</p>
                                     <p class="text-xs text-gray-400">Coach Sarah</p>
-                                    <span class="bg-gray-700 text-[10px] px-2 py-0.5 rounded mt-1 inline-block">Lista de Espera</span>
+                                    <span class="bg-gray-700 text-[8px] px-1.5 py-0.5 rounded text-gray-300">Lista Espera</span>
                                 </div>
-                                <button class="bg-gray-600 text-gray-300 text-xs px-2 rounded h-8 self-center cursor-not-allowed">Lleno</button>
+                                <button class="bg-gray-700 text-gray-400 text-[10px] font-bold px-3 py-1.5 rounded-lg">Lleno</button>
                             </div>
 
-                            <h3 class="font-bold text-xl mt-6 mb-4">Mi Rutina</h3>
-                             <div class="bg-black p-4 rounded-xl border border-gray-700">
-                                <div class="flex justify-between mb-2">
-                                    <span class="font-bold">Sentadilla Libre</span>
-                                    <span class="text-xs text-blue-400"><i class="fas fa-video"></i> Ver técnica</span>
+                            <h3 class="font-bold text-white text-lg mb-3">Rutina Activa</h3>
+                            <div class="bg-black p-4 rounded-xl border border-zinc-800">
+                                <div class="flex justify-between mb-3">
+                                    <p class="font-bold text-sm">Sentadilla Libre</p>
+                                    <button class="text-xs text-blue-400"><i class="fas fa-play-circle"></i> Técnica</button>
                                 </div>
-                                <div class="flex gap-2 mb-2">
-                                    <input type="text" value="80kg" class="bg-zinc-900 border border-gray-700 rounded w-16 text-center text-sm py-1">
-                                    <input type="text" value="10 reps" class="bg-zinc-900 border border-gray-700 rounded w-16 text-center text-sm py-1">
-                                    <button class="bg-green-600 text-white w-8 h-8 rounded"><i class="fas fa-check"></i></button>
+                                <div class="flex gap-2">
+                                    <input type="text" value="80kg" class="bg-zinc-900 border border-zinc-700 text-center w-16 text-xs rounded py-2 text-white">
+                                    <input type="text" value="10 reps" class="bg-zinc-900 border border-zinc-700 text-center w-16 text-xs rounded py-2 text-white">
+                                    <button class="bg-green-600 text-white w-8 rounded flex items-center justify-center"><i class="fas fa-check text-xs"></i></button>
                                 </div>
                             </div>
                         </div>
                     </div>
-                 </div>
-                `,
+                </div>`,
                 owner: `
-                 <div class="bg-gray-900 rounded-xl border border-gray-800 p-8 shadow-2xl h-[500px]">
+                <div class="max-w-5xl mx-auto fade-in">
                     <div class="flex justify-between items-center mb-6">
-                        <h3 class="font-bold text-xl">Gestión de Clases</h3>
-                        <button class="bg-red-600 text-white px-3 py-2 rounded text-sm hover:bg-red-700">+ Nueva Clase</button>
+                        <h3 class="text-xl font-bold">Programación de Salas</h3>
+                        <button class="bg-white text-black text-sm font-bold px-4 py-2 rounded hover:bg-gray-200">+ Crear Clase</button>
                     </div>
-                    <div class="grid grid-cols-3 gap-4">
-                        <div class="bg-black p-4 rounded border border-gray-800 relative">
-                             <span class="absolute top-2 right-2 w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
-                             <h4 class="font-bold">CrossFit 9AM</h4>
-                             <p class="text-xs text-gray-500 mb-2">Miguel • Sala A</p>
-                             <div class="w-full bg-gray-800 h-2 rounded-full mb-2"><div class="bg-red-600 w-[80%] h-2 rounded-full"></div></div>
-                             <p class="text-xs text-right mb-3">16/20 Inscritos</p>
-                             <div class="flex gap-2">
-                                <button class="flex-1 bg-gray-800 text-xs py-1 rounded hover:bg-gray-700">Ver Lista</button>
-                                <button class="flex-1 bg-gray-800 text-xs text-red-500 py-1 rounded hover:bg-gray-700">Cancelar</button>
-                             </div>
+
+                    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <!-- Admin Card -->
+                        <div class="bg-zinc-900 p-5 rounded-xl border border-zinc-800 relative group hover:border-red-600 transition">
+                            <span class="absolute top-4 right-4 flex h-3 w-3">
+                              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                              <span class="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+                            </span>
+                            <h4 class="font-bold text-lg text-white">CrossFit - Mañana</h4>
+                            <p class="text-xs text-gray-500 mb-4">09:00 AM • Sala Principal</p>
+                            
+                            <div class="flex justify-between text-xs text-gray-300 mb-1">
+                                <span>Instructor: Miguel</span>
+                                <span class="text-white font-bold">16/20</span>
+                            </div>
+                            <div class="w-full bg-black h-2 rounded-full mb-4 border border-zinc-800">
+                                <div class="bg-red-600 h-2 rounded-full" style="width: 80%"></div>
+                            </div>
+                            
+                            <div class="flex gap-2">
+                                <button class="flex-1 bg-zinc-800 hover:bg-zinc-700 text-xs py-2 rounded text-white">Ver Lista</button>
+                                <button class="flex-1 bg-zinc-800 hover:bg-zinc-700 text-xs py-2 rounded text-red-500">Cancelar</button>
+                            </div>
                         </div>
-                        <div class="bg-black p-4 rounded border border-gray-800">
-                             <h4 class="font-bold">Zumba 6PM</h4>
-                             <p class="text-xs text-gray-500 mb-2">Laura • Sala B</p>
-                             <div class="w-full bg-gray-800 h-2 rounded-full mb-2"><div class="bg-blue-600 w-[30%] h-2 rounded-full"></div></div>
-                             <p class="text-xs text-right mb-3">6/30 Inscritos</p>
-                             <div class="flex gap-2">
-                                <button class="flex-1 bg-gray-800 text-xs py-1 rounded hover:bg-gray-700">Ver Lista</button>
-                                <button class="flex-1 bg-gray-800 text-xs text-blue-400 py-1 rounded hover:bg-gray-700">Promocionar</button>
-                             </div>
+
+                        <div class="bg-zinc-900 p-5 rounded-xl border border-zinc-800 group hover:border-blue-600 transition">
+                            <h4 class="font-bold text-lg text-white">Zumba Tarde</h4>
+                            <p class="text-xs text-gray-500 mb-4">06:00 PM • Sala B</p>
+                            
+                            <div class="flex justify-between text-xs text-gray-300 mb-1">
+                                <span>Instructor: Laura</span>
+                                <span class="text-white font-bold">5/30</span>
+                            </div>
+                            <div class="w-full bg-black h-2 rounded-full mb-4 border border-zinc-800">
+                                <div class="bg-blue-600 h-2 rounded-full" style="width: 15%"></div>
+                            </div>
+                            
+                            <div class="flex gap-2">
+                                <button class="flex-1 bg-zinc-800 hover:bg-zinc-700 text-xs py-2 rounded text-white">Ver Lista</button>
+                                <button class="flex-1 bg-zinc-800 hover:bg-zinc-700 text-xs py-2 rounded text-blue-400">Promocionar</button>
+                            </div>
                         </div>
                     </div>
-                 </div>
-                `
+                </div>`
             },
             social: {
-                user: `
-                <div class="flex justify-center">
-                    <div class="iphone-mockup w-[320px] h-[650px] bg-black text-white overflow-hidden shadow-2xl">
+                title: "Liga & Red Social",
+                desc: "Fidelización a través de la competencia y pertenencia.",
+                hasToggle: true,
+                client: `
+                <div class="flex justify-center fade-in">
+                    <div class="iphone-frame">
                         <div class="iphone-notch"></div>
-                        <div class="h-full overflow-y-auto pt-12 pb-4 px-4 bg-zinc-900">
+                        <div class="h-full overflow-y-auto bg-zinc-900 pt-10 pb-4 px-4 scrollbar-hide">
                             
-                            <!-- Liga Card -->
-                            <div class="bg-gradient-to-r from-red-900 to-black p-4 rounded-xl border border-red-700 mb-6 text-center">
-                                <p class="text-xs text-red-300 uppercase tracking-widest mb-1">Liga Regional</p>
-                                <h2 class="text-3xl font-black italic">POSICIÓN #2</h2>
-                                <p class="text-sm font-bold mt-1">QbrFit Quíbor</p>
-                                <p class="text-[10px] text-gray-400 mt-2">¡Estamos a 140 pts de ganar!</p>
+                            <!-- Rank Card -->
+                            <div class="mt-4 bg-gradient-to-r from-red-900 to-black p-5 rounded-2xl border border-red-700 text-center mb-6 shadow-xl">
+                                <p class="text-[10px] text-red-300 uppercase tracking-widest font-bold mb-1">Liga Regional Lara</p>
+                                <h2 class="text-4xl font-black italic text-white mb-1">#2</h2>
+                                <p class="text-sm font-bold text-white">QbrFit Quíbor</p>
+                                <div class="bg-black/40 rounded-full px-3 py-1 mt-3 inline-block text-[10px] text-gray-300">
+                                    🚀 A 140 pts del 1er lugar
+                                </div>
                             </div>
 
                             <!-- Feed -->
-                            <div class="bg-black p-4 rounded-xl border border-gray-800 mb-4">
+                            <h3 class="font-bold text-white text-sm mb-3 ml-1">Muro de la Tribu</h3>
+                            <div class="bg-black p-4 rounded-xl border border-zinc-800 mb-4">
                                 <div class="flex items-center gap-3 mb-3">
-                                    <div class="w-8 h-8 bg-gray-700 rounded-full border border-red-500 flex items-center justify-center text-xs">MA</div>
+                                    <div class="w-8 h-8 bg-gray-700 rounded-full border border-red-500 flex items-center justify-center text-xs font-bold">MA</div>
                                     <div>
-                                        <p class="text-sm font-bold">Marcos "La Bestia"</p>
+                                        <p class="text-sm font-bold text-white">Marcos "La Bestia"</p>
                                         <p class="text-[10px] text-gray-500">Hace 20 min</p>
                                     </div>
                                 </div>
-                                <p class="text-sm mb-3">¡Nuevo PR en Banca! 120kg 🔥 Gracias al coach por el spot.</p>
-                                <div class="bg-gray-800 h-32 rounded flex items-center justify-center text-gray-600 text-xs mb-3">
-                                    [VIDEO]
+                                <p class="text-sm text-gray-300 mb-3">¡Nuevo PR en Banca! 120kg 🔥 Gracias al coach por el spot.</p>
+                                <div class="bg-zinc-800 h-32 rounded-lg flex items-center justify-center text-gray-600 text-xs mb-3 border border-zinc-700">
+                                    <i class="fas fa-play text-2xl"></i>
                                 </div>
-                                <div class="flex gap-4">
-                                    <button class="text-red-500 text-xs font-bold flex items-center gap-1"><i class="fas fa-fire"></i> 42 Fuego</button>
-                                    <button class="text-gray-400 text-xs flex items-center gap-1"><i class="fas fa-comment"></i> 5 Comentarios</button>
+                                <div class="flex gap-4 border-t border-zinc-800 pt-3">
+                                    <button class="text-red-500 text-xs font-bold flex items-center gap-1"><i class="fas fa-fire"></i> 42</button>
+                                    <button class="text-gray-400 text-xs flex items-center gap-1"><i class="fas fa-comment"></i> 5</button>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                `,
+                </div>`,
                 owner: `
-                 <div class="bg-gray-900 rounded-xl border border-gray-800 p-8 shadow-2xl h-[500px]">
-                    <div class="grid grid-cols-2 gap-8 h-full">
-                        <div>
-                            <h3 class="font-bold text-xl mb-4">Salud de la Comunidad</h3>
-                            <div class="bg-black p-4 rounded mb-4 flex justify-between items-center">
-                                <span>Interacciones Hoy</span>
+                <div class="max-w-5xl mx-auto fade-in">
+                    <div class="grid md:grid-cols-2 gap-8">
+                        
+                        <!-- Community Health -->
+                        <div class="bg-zinc-900 p-6 rounded-xl border border-zinc-800">
+                            <h3 class="font-bold text-xl mb-4 text-white">Salud de la Comunidad</h3>
+                            <div class="bg-black p-4 rounded-lg mb-4 flex justify-between items-center border border-zinc-800">
+                                <span class="text-gray-400 text-sm">Interacciones Hoy</span>
                                 <span class="text-2xl font-bold text-green-500">1,240</span>
                             </div>
-                            <div class="bg-black p-4 rounded mb-4">
-                                <p class="mb-2 font-bold">Moderación</p>
-                                <div class="text-gray-500 text-sm text-center py-4">No hay reportes pendientes ✅</div>
-                            </div>
-                        </div>
-                        <div class="border-l border-gray-800 pl-8">
-                            <div class="flex justify-between items-center mb-4">
-                                <h3 class="font-bold text-xl text-red-500">Liga Inter-Gimnasios</h3>
-                                <div class="relative inline-block w-10 align-middle select-none transition duration-200 ease-in">
-                                    <input type="checkbox" name="toggle" id="toggle" checked class="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-4 appearance-none cursor-pointer"/>
-                                    <label for="toggle" class="toggle-label block overflow-hidden h-5 rounded-full bg-red-600 cursor-pointer"></label>
+                            <div class="bg-black p-4 rounded-lg border border-zinc-800">
+                                <p class="mb-2 font-bold text-white text-sm">Moderación</p>
+                                <div class="text-gray-500 text-xs text-center py-4 bg-zinc-900/50 rounded border border-zinc-800 border-dashed">
+                                    <i class="fas fa-check-circle text-green-500 mb-1 block text-lg"></i>
+                                    No hay reportes pendientes
                                 </div>
                             </div>
-                            <p class="text-sm text-gray-400 mb-4">Tu gimnasio está compartiendo estadísticas anónimas para competir.</p>
+                        </div>
+
+                        <!-- League Settings -->
+                        <div class="bg-zinc-900 p-6 rounded-xl border border-zinc-800 relative overflow-hidden">
+                            <div class="absolute top-0 right-0 p-4 opacity-10"><i class="fas fa-trophy text-8xl text-white"></i></div>
                             
-                            <div class="bg-black p-4 rounded border border-gray-800">
-                                <h4 class="font-bold mb-3">Ranking Actual</h4>
+                            <div class="flex justify-between items-center mb-6 relative z-10">
+                                <h3 class="font-bold text-xl text-red-500">Liga Inter-Gimnasios</h3>
+                                <div class="relative inline-block w-12 mr-2 align-middle select-none">
+                                    <input type="checkbox" checked class="absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer right-0"/>
+                                    <label class="block overflow-hidden h-6 rounded-full bg-red-600 cursor-pointer"></label>
+                                </div>
+                            </div>
+                            
+                            <p class="text-sm text-gray-400 mb-6 relative z-10">
+                                Tu gimnasio compite compartiendo estadísticas anónimas (asistencia promedio y puntos totales).
+                            </p>
+                            
+                            <div class="bg-black p-4 rounded-lg border border-zinc-800 relative z-10">
+                                <h4 class="font-bold text-white text-sm mb-3 uppercase tracking-wider">Ranking en Vivo</h4>
                                 <div class="flex justify-between text-sm mb-2 opacity-50">
                                     <span>1. Spartan Gym</span>
                                     <span>9,800 pts</span>
                                 </div>
-                                <div class="flex justify-between text-sm mb-2 text-red-500 font-bold bg-red-900/20 p-1 rounded">
-                                    <span>2. TU GIMNASIO</span>
+                                <div class="flex justify-between text-sm mb-2 text-red-500 font-bold bg-red-900/10 p-2 rounded border border-red-900/30">
+                                    <span>2. QbrFit (Tú)</span>
                                     <span>9,660 pts</span>
                                 </div>
                                 <div class="flex justify-between text-sm opacity-50">
@@ -578,282 +490,358 @@
                             </div>
                         </div>
                     </div>
-                 </div>
-                `
+                </div>`
             },
-            monetizacion: {
-                user: `
-                <div class="flex justify-center">
-                    <div class="iphone-mockup w-[320px] h-[650px] bg-black text-white overflow-hidden shadow-2xl">
+            marketplace: {
+                title: "Marketplace Digital",
+                desc: "Venta de infoproductos y servicios adicionales.",
+                hasToggle: true,
+                client: `
+                <div class="flex justify-center fade-in">
+                    <div class="iphone-frame">
                         <div class="iphone-notch"></div>
-                        <div class="h-full overflow-y-auto pt-12 pb-4 px-4 bg-zinc-900">
-                            <h3 class="font-bold text-xl mb-4 flex items-center gap-2"><i class="fas fa-shopping-bag text-red-500"></i> Tienda Digital</h3>
+                        <div class="h-full overflow-y-auto bg-zinc-900 pt-10 pb-4 px-4 scrollbar-hide">
+                            <h3 class="font-bold text-white text-lg mb-4 mt-2 flex items-center gap-2"><i class="fas fa-store text-red-500"></i> Tienda</h3>
                             
-                            <!-- Featured -->
-                            <div class="relative h-40 rounded-xl bg-gradient-to-r from-red-800 to-black p-4 flex flex-col justify-center border border-red-700 mb-6">
+                            <!-- Hero Product -->
+                            <div class="relative h-48 rounded-2xl bg-gradient-to-r from-red-800 to-black p-5 flex flex-col justify-center border border-red-700 mb-6 shadow-lg overflow-hidden group cursor-pointer">
+                                <div class="absolute right-0 top-0 w-32 h-32 bg-white/5 rounded-full blur-2xl transform translate-x-10 -translate-y-10"></div>
                                 <span class="bg-yellow-500 text-black text-[10px] font-bold px-2 py-0.5 rounded w-fit mb-2">TOP VENTAS</span>
-                                <h3 class="font-bold text-xl w-2/3 leading-tight">Reto Abdomen de Acero 🔥</h3>
-                                <p class="text-xs text-gray-300 mt-1">Por: Coach Miguel</p>
-                                <div class="mt-auto flex items-center gap-3">
-                                    <span class="text-2xl font-bold">$12.99</span>
-                                    <button class="bg-white text-black text-xs font-bold px-3 py-2 rounded hover:bg-gray-200">Comprar Ahora</button>
+                                <h3 class="font-bold text-2xl text-white w-3/4 leading-tight mb-1">Reto Abdomen de Acero</h3>
+                                <p class="text-xs text-red-200 mb-4">Por: Coach Miguel</p>
+                                <div class="mt-auto flex items-center justify-between">
+                                    <span class="text-2xl font-bold text-white">$12.99</span>
+                                    <button class="bg-white text-black text-xs font-bold px-4 py-2 rounded-lg hover:bg-gray-200 transition">Comprar</button>
                                 </div>
                             </div>
 
                             <div class="grid grid-cols-2 gap-3">
-                                <div class="bg-black p-3 rounded-xl border border-gray-800">
-                                    <div class="bg-gray-800 h-20 rounded mb-2 flex items-center justify-center text-xs text-gray-500">[PDF]</div>
-                                    <p class="font-bold text-sm truncate">Recetario Keto</p>
+                                <div class="bg-black p-4 rounded-xl border border-zinc-800 hover:border-gray-600 transition cursor-pointer">
+                                    <div class="bg-zinc-800 h-24 rounded-lg mb-3 flex items-center justify-center text-xs text-gray-500"><i class="fas fa-file-pdf text-2xl"></i></div>
+                                    <p class="font-bold text-white text-sm truncate">Recetario Keto</p>
+                                    <p class="text-gray-500 text-xs mb-2">Nutri Ana</p>
                                     <p class="text-red-500 font-bold text-sm">$8.00</p>
                                 </div>
-                                <div class="bg-black p-3 rounded-xl border border-gray-800">
-                                    <div class="bg-gray-800 h-20 rounded mb-2 flex items-center justify-center text-xs text-gray-500">[VIDEO]</div>
-                                    <p class="font-bold text-sm truncate">Glúteos en Casa</p>
+                                <div class="bg-black p-4 rounded-xl border border-zinc-800 hover:border-gray-600 transition cursor-pointer">
+                                    <div class="bg-zinc-800 h-24 rounded-lg mb-3 flex items-center justify-center text-xs text-gray-500"><i class="fas fa-video text-2xl"></i></div>
+                                    <p class="font-bold text-white text-sm truncate">Glúteos en Casa</p>
+                                    <p class="text-gray-500 text-xs mb-2">Coach Sarah</p>
                                     <p class="text-red-500 font-bold text-sm">$15.00</p>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                `,
+                </div>`,
                 owner: `
-                 <div class="bg-gray-900 rounded-xl border border-gray-800 p-8 shadow-2xl h-[400px] flex flex-col justify-center">
-                    <div class="flex items-center gap-8">
-                        <div class="flex-1 bg-gradient-to-br from-zinc-800 to-black p-6 rounded-xl border border-gray-700 text-center">
-                            <div class="w-16 h-16 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-4 text-green-500 text-2xl">
+                <div class="max-w-4xl mx-auto fade-in">
+                    <div class="grid md:grid-cols-2 gap-8 items-center">
+                        <!-- Stats -->
+                        <div class="bg-zinc-900 p-8 rounded-xl border border-zinc-800 text-center relative overflow-hidden">
+                             <div class="absolute top-0 left-0 w-full h-1 bg-green-500"></div>
+                             <div class="w-20 h-20 bg-green-500/10 rounded-full flex items-center justify-center mx-auto mb-4 text-green-500 text-3xl border border-green-500/20">
                                 <i class="fas fa-dollar-sign"></i>
                             </div>
-                            <p class="text-gray-400 text-sm">Tus Comisiones (20%)</p>
-                            <p class="text-5xl font-bold text-white mt-2">$345.00</p>
-                            <p class="text-xs text-green-500 mt-2">Ingreso 100% Pasivo este mes</p>
+                            <p class="text-gray-400 text-sm uppercase tracking-widest mb-2">Tus Comisiones (20%)</p>
+                            <p class="text-6xl font-black text-white mb-2">$345</p>
+                            <p class="text-xs text-green-500 bg-green-900/20 py-1 px-3 rounded-full inline-block">Ingreso 100% Pasivo este mes</p>
                         </div>
-                        <div class="flex-1 space-y-4">
-                            <h3 class="font-bold text-lg">Aprobación de Productos</h3>
-                            <div class="bg-black p-3 rounded border border-gray-700 flex justify-between items-center">
+
+                        <!-- Approval List -->
+                        <div class="space-y-4">
+                            <h3 class="font-bold text-lg text-white">Pendientes de Aprobación</h3>
+                            <p class="text-sm text-gray-400">Tus entrenadores crean el contenido, tú apruebas y cobras.</p>
+                            
+                            <div class="bg-zinc-900 p-4 rounded-xl border border-zinc-800 flex justify-between items-center">
                                 <div>
-                                    <p class="text-sm font-bold">Guía Detox 7 Días</p>
+                                    <p class="text-sm font-bold text-white">Guía Detox 7 Días</p>
                                     <p class="text-xs text-gray-500">Nutri Ana • $10.00</p>
                                 </div>
-                                <button class="text-green-500 text-xs font-bold hover:underline">Aprobar y Publicar</button>
-                            </div>
-                            <div class="p-4 bg-blue-900/20 border border-blue-900 rounded text-xs text-blue-200">
-                                <i class="fas fa-info-circle"></i> Tus entrenadores crean el contenido, tú pones la plataforma y ganas comisión.
-                            </div>
-                        </div>
-                    </div>
-                 </div>
-                `
-            },
-            experiencia: {
-                user: `
-                <div class="flex justify-center">
-                    <div class="iphone-mockup w-[320px] h-[650px] bg-black text-white overflow-hidden shadow-2xl">
-                        <div class="iphone-notch"></div>
-                        <div class="h-full overflow-y-auto pt-12 pb-4 px-4 bg-zinc-900">
-                            <!-- Rockola -->
-                            <div class="bg-zinc-800 p-4 rounded-xl border border-red-900/50 text-center relative mb-6">
-                                <div class="absolute top-0 left-0 w-full h-1 bg-red-600 animate-pulse"></div>
-                                <p class="text-[10px] text-red-500 font-bold uppercase tracking-widest mb-2">Rockola del Gym</p>
-                                <div class="w-20 h-20 bg-black mx-auto rounded flex items-center justify-center mb-2 shadow-lg text-red-600 text-2xl"><i class="fas fa-music"></i></div>
-                                <h3 class="text-white font-bold">Du Hast</h3>
-                                <p class="text-gray-400 text-xs mb-3">Rammstein</p>
-                                
-                                <div class="bg-black/50 p-2 rounded text-left mb-1 flex justify-between items-center">
-                                    <span class="text-xs">Bad Bunny</span>
-                                    <button class="bg-red-600 text-[10px] px-2 py-1 rounded">Votar (50pts)</button>
+                                <div class="flex gap-2">
+                                    <button class="text-gray-400 hover:text-white px-2"><i class="fas fa-eye"></i></button>
+                                    <button class="bg-green-600 text-white text-xs font-bold px-3 py-1.5 rounded hover:bg-green-700">Aprobar</button>
                                 </div>
                             </div>
 
-                            <!-- QR Wiki -->
-                            <h3 class="font-bold text-lg mb-3">Escáner Inteligente</h3>
-                            <div class="bg-black p-4 rounded-xl border border-dashed border-gray-600 flex flex-col items-center justify-center h-24 mb-3">
-                                <i class="fas fa-qrcode text-2xl text-gray-400 mb-1"></i>
-                                <p class="text-[10px] text-gray-500">Apunta a una máquina...</p>
+                             <div class="p-4 bg-blue-900/10 border border-blue-900/50 rounded-xl text-xs text-blue-200 flex gap-3">
+                                <i class="fas fa-info-circle text-lg"></i>
+                                <div>
+                                    <p class="font-bold mb-1">Modelo de Negocio:</p>
+                                    El creador se lleva el 80%, el gimnasio el 20%. Stripe procesa los pagos automáticamente.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>`
+            },
+            experience: {
+                title: "Experiencia & Rockola",
+                desc: "Democracia musical y aprendizaje autónomo.",
+                hasToggle: true,
+                client: `
+                <div class="flex justify-center fade-in">
+                    <div class="iphone-frame">
+                        <div class="iphone-notch"></div>
+                        <div class="h-full overflow-y-auto bg-zinc-900 pt-10 pb-4 px-4 scrollbar-hide">
+                            
+                            <!-- Rockola -->
+                            <div class="bg-zinc-800 p-5 rounded-2xl border border-red-900/50 text-center relative mb-8 overflow-hidden">
+                                <div class="absolute top-0 left-0 w-full h-1 bg-red-600 animate-pulse"></div>
+                                <p class="text-[10px] text-red-500 font-bold uppercase tracking-widest mb-4 mt-2">Sonando Ahora</p>
+                                
+                                <div class="w-24 h-24 bg-black mx-auto rounded-lg flex items-center justify-center mb-4 shadow-2xl border border-zinc-700">
+                                    <i class="fas fa-music text-red-600 text-3xl animate-bounce"></i>
+                                </div>
+                                
+                                <h3 class="text-white font-bold text-xl">Du Hast</h3>
+                                <p class="text-gray-400 text-xs mb-4">Rammstein</p>
+                                
+                                <div class="bg-black/40 p-3 rounded-xl text-left flex justify-between items-center border border-white/5">
+                                    <div>
+                                        <p class="text-xs text-gray-300 font-bold">Siguiente: Bad Bunny</p>
+                                        <p class="text-[10px] text-gray-500">Pedida por Jorge</p>
+                                    </div>
+                                    <button class="bg-red-600 text-white text-[10px] font-bold px-3 py-1.5 rounded-lg hover:bg-red-700">Votar (50pts)</button>
+                                </div>
+                            </div>
+
+                            <!-- QR Scanner -->
+                            <h3 class="font-bold text-white text-sm mb-3 ml-1">Escáner de Máquinas</h3>
+                            <div class="bg-black p-6 rounded-2xl border-2 border-dashed border-zinc-700 flex flex-col items-center justify-center h-32 mb-4 group cursor-pointer hover:border-blue-500 transition">
+                                <i class="fas fa-qrcode text-3xl text-gray-600 mb-2 group-hover:text-blue-500 transition"></i>
+                                <p class="text-[10px] text-gray-500">Toca para escanear equipo...</p>
                             </div>
                             
-                            <!-- Resultado Simulado -->
-                            <div class="bg-zinc-800 p-3 rounded-xl border-l-4 border-blue-500 flex gap-3 items-center">
-                                <div class="bg-black w-10 h-10 rounded flex items-center justify-center"><i class="fas fa-dumbbell text-blue-500"></i></div>
+                            <!-- Result -->
+                            <div class="bg-zinc-800 p-4 rounded-xl border-l-4 border-blue-500 flex gap-4 items-center shadow-lg">
+                                <div class="bg-black w-12 h-12 rounded-lg flex items-center justify-center"><i class="fas fa-dumbbell text-blue-500"></i></div>
                                 <div>
                                     <p class="text-[10px] text-blue-400 font-bold uppercase">Detectado</p>
-                                    <p class="font-bold text-sm">Prensa de Piernas</p>
-                                    <p class="text-[10px] text-gray-400">Ver Tutorial (15s)</p>
+                                    <p class="font-bold text-white text-sm">Prensa de Piernas</p>
+                                    <button class="text-[10px] text-gray-300 underline mt-1">Ver Tutorial (15s)</button>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                `,
+                </div>`,
                 owner: `
-                 <div class="bg-gray-900 rounded-xl border border-gray-800 p-8 shadow-2xl h-[400px]">
-                    <div class="grid grid-cols-2 gap-8">
-                        <div>
-                            <h3 class="font-bold text-lg mb-4">Configuración Rockola</h3>
-                            <div class="mb-4">
-                                <label class="text-xs text-gray-400 block mb-1">Costo por Pedir Canción (Puntos)</label>
-                                <input type="number" value="50" class="bg-black border border-gray-700 text-white rounded p-2 w-full">
+                <div class="max-w-4xl mx-auto fade-in">
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <!-- Music Config -->
+                        <div class="bg-zinc-900 p-6 rounded-xl border border-zinc-800">
+                            <h3 class="font-bold text-lg text-white mb-6 border-b border-zinc-800 pb-2">Configuración Rockola</h3>
+                            
+                            <div class="mb-6">
+                                <label class="text-xs text-gray-400 block mb-2 uppercase font-bold">Costo por Canción</label>
+                                <div class="flex items-center gap-2">
+                                    <input type="number" value="50" class="bg-black border border-zinc-700 text-white rounded p-2 w-24 text-center font-bold">
+                                    <span class="text-sm text-gray-500">GymPoints</span>
+                                </div>
                             </div>
-                            <div class="bg-red-900/20 p-4 rounded border border-red-800">
-                                <p class="text-xs text-red-400 font-bold mb-2">Lista Negra (Prohibidas)</p>
+
+                            <div class="bg-red-900/10 p-4 rounded-xl border border-red-900/30">
+                                <p class="text-xs text-red-400 font-bold mb-3 uppercase flex items-center gap-2"><i class="fas fa-ban"></i> Lista Negra (Prohibidas)</p>
                                 <div class="flex gap-2 flex-wrap">
-                                    <span class="bg-black px-2 py-1 rounded text-xs border border-gray-700">Vallenato <i class="fas fa-times ml-1 cursor-pointer"></i></span>
-                                    <span class="bg-black px-2 py-1 rounded text-xs border border-gray-700">Canciones > 8min <i class="fas fa-times ml-1 cursor-pointer"></i></span>
+                                    <span class="bg-black px-3 py-1 rounded-full text-xs text-gray-300 border border-zinc-700 flex items-center gap-2">Vallenato <i class="fas fa-times text-gray-500 cursor-pointer hover:text-white"></i></span>
+                                    <span class="bg-black px-3 py-1 rounded-full text-xs text-gray-300 border border-zinc-700 flex items-center gap-2">Canciones > 8min <i class="fas fa-times text-gray-500 cursor-pointer hover:text-white"></i></span>
+                                    <button class="text-xs text-gray-500 hover:text-white underline">+ Agregar</button>
                                 </div>
                             </div>
                         </div>
-                        <div>
-                            <h3 class="font-bold text-lg mb-4">Aliados & Códigos QR</h3>
-                            <p class="text-sm text-gray-400 mb-4">Gestiona los descuentos locales para tus miembros.</p>
-                            <div class="bg-black p-3 rounded border border-gray-700 flex justify-between items-center mb-2">
-                                <div>
-                                    <p class="text-sm font-bold">Subway Centro</p>
-                                    <p class="text-xs text-green-500">Descuento: 15%</p>
+
+                        <!-- QR Partners -->
+                        <div class="bg-zinc-900 p-6 rounded-xl border border-zinc-800">
+                            <h3 class="font-bold text-lg text-white mb-6 border-b border-zinc-800 pb-2">Club de Beneficios</h3>
+                            <p class="text-sm text-gray-400 mb-4">Gestiona los descuentos en comercios locales.</p>
+                            
+                            <div class="space-y-3">
+                                <div class="bg-black p-3 rounded-lg border border-zinc-700 flex justify-between items-center">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-8 h-8 rounded bg-green-900/20 flex items-center justify-center text-green-500"><i class="fas fa-utensils"></i></div>
+                                        <div>
+                                            <p class="text-sm font-bold text-white">Subway Centro</p>
+                                            <p class="text-xs text-green-500">Descuento: 15%</p>
+                                        </div>
+                                    </div>
+                                    <span class="w-2 h-2 bg-green-500 rounded-full"></span>
                                 </div>
-                                <span class="text-green-500 text-xs bg-green-900/30 px-2 py-1 rounded">Activo</span>
+                                <div class="bg-black p-3 rounded-lg border border-zinc-700 flex justify-between items-center opacity-60">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-8 h-8 rounded bg-blue-900/20 flex items-center justify-center text-blue-500"><i class="fas fa-tshirt"></i></div>
+                                        <div>
+                                            <p class="text-sm font-bold text-white">Tienda Nike</p>
+                                            <p class="text-xs text-blue-500">Descuento: 10%</p>
+                                        </div>
+                                    </div>
+                                    <span class="w-2 h-2 bg-gray-500 rounded-full"></span>
+                                </div>
                             </div>
                         </div>
                     </div>
-                 </div>
-                `
+                </div>`
             },
-            ia: {
-                user: `
-                <div class="flex justify-center">
-                    <div class="iphone-mockup w-[320px] h-[650px] bg-black text-white overflow-hidden shadow-2xl border-blue-900">
+            ai: {
+                title: "IA Gemini Coach",
+                desc: "Inteligencia Artificial para nutrición y retención.",
+                hasToggle: true,
+                client: `
+                <div class="flex justify-center fade-in">
+                    <div class="iphone-frame border-blue-900/30">
                         <div class="iphone-notch"></div>
-                        <div class="h-full overflow-y-auto pt-12 pb-4 px-4 bg-zinc-900">
+                        <div class="h-full overflow-y-auto bg-zinc-900 pt-10 pb-4 px-4 scrollbar-hide">
                             
                             <!-- NutriSnap -->
-                            <div class="bg-zinc-800 p-4 rounded-xl border border-blue-500/30 mb-6 relative overflow-hidden">
+                            <div class="bg-zinc-800 p-5 rounded-2xl border border-blue-500/30 mb-6 relative overflow-hidden shadow-lg shadow-blue-900/20">
                                 <div class="absolute top-0 right-0 bg-blue-600 text-[8px] font-bold px-2 py-1 rounded-bl text-white">GEMINI VISION</div>
-                                <h4 class="font-bold text-sm mb-2"><i class="fas fa-camera text-blue-400"></i> NutriSnap AI</h4>
+                                <h4 class="font-bold text-sm mb-3 text-white flex items-center gap-2"><i class="fas fa-camera text-blue-400"></i> NutriSnap AI</h4>
                                 
-                                <div class="bg-black rounded p-2 border border-gray-700 flex gap-3 items-center">
-                                    <div class="w-12 h-12 bg-gray-800 rounded flex items-center justify-center text-[8px] text-gray-500">[FOTO PLATO]</div>
+                                <div class="bg-black rounded-xl p-3 border border-zinc-700 flex gap-4 items-center">
+                                    <div class="w-16 h-16 bg-zinc-800 rounded-lg flex items-center justify-center text-[10px] text-gray-500 border border-dashed border-gray-600">
+                                        <i class="fas fa-image text-2xl"></i>
+                                    </div>
                                     <div class="flex-1">
-                                        <p class="text-[10px] text-blue-400 font-bold animate-pulse">Analizando...</p>
-                                        <p class="text-xs font-bold">Pollo + Arroz + Brócoli</p>
-                                        <div class="flex gap-1 mt-1">
-                                            <span class="bg-gray-700 text-[8px] px-1 rounded">Prot: 35g</span>
-                                            <span class="bg-gray-700 text-[8px] px-1 rounded">Cal: 450</span>
+                                        <p class="text-[10px] text-blue-400 font-bold animate-pulse mb-1">Analizando imagen...</p>
+                                        <p class="text-xs font-bold text-white mb-2">Pollo + Arroz + Brócoli</p>
+                                        <div class="flex gap-2">
+                                            <span class="bg-zinc-800 text-gray-300 text-[10px] px-2 py-1 rounded border border-zinc-700">Prot: 35g</span>
+                                            <span class="bg-zinc-800 text-gray-300 text-[10px] px-2 py-1 rounded border border-zinc-700">Cal: 450</span>
                                         </div>
                                     </div>
                                 </div>
-                                <button class="w-full bg-blue-600/20 text-blue-400 text-xs mt-2 py-1 rounded border border-blue-900">Registrar Comida</button>
+                                <button class="w-full bg-blue-600/10 text-blue-400 hover:bg-blue-600 hover:text-white transition text-xs mt-3 py-2 rounded-lg border border-blue-900 font-bold">Registrar Comida</button>
                             </div>
 
                             <!-- Chat IA -->
-                            <div class="h-64 bg-black rounded-xl border border-gray-800 p-3 flex flex-col">
-                                <h4 class="font-bold text-sm mb-2 text-gray-400">Coach Inteligente</h4>
-                                <div class="flex-1 overflow-y-auto space-y-2 text-xs">
-                                    <div class="text-right"><span class="bg-blue-900 text-blue-100 px-2 py-1 rounded inline-block">Me duele la rodilla, ¿qué cardio hago?</span></div>
-                                    <div class="text-left"><span class="bg-zinc-800 text-gray-300 px-2 py-1 rounded inline-block border border-gray-700"><i class="fas fa-sparkles text-purple-500"></i> Evita saltos. Te recomiendo: <br>1. Elíptica (bajo impacto)<br>2. Battle Ropes<br>3. Natación</span></div>
+                            <div class="h-72 bg-black rounded-2xl border border-zinc-800 p-4 flex flex-col">
+                                <h4 class="font-bold text-sm mb-3 text-gray-400 flex items-center gap-2"><i class="fas fa-robot"></i> Coach Inteligente</h4>
+                                <div class="flex-1 overflow-y-auto space-y-3 text-xs mb-3 pr-2">
+                                    <div class="text-right"><span class="bg-blue-900 text-blue-100 px-3 py-2 rounded-2xl rounded-tr-sm inline-block max-w-[85%]">Me duele la rodilla, ¿qué cardio hago?</span></div>
+                                    <div class="text-left"><span class="bg-zinc-800 text-gray-300 px-3 py-2 rounded-2xl rounded-tl-sm inline-block border border-zinc-700 max-w-[90%]"><i class="fas fa-sparkles text-purple-500 mr-1"></i> Evita impactos. Te sugiero: <br><br>1. Elíptica<br>2. Battle Ropes<br>3. Remo (Ergómetro)</span></div>
                                 </div>
-                                <div class="mt-2 flex gap-1">
-                                    <input type="text" placeholder="Pregunta..." class="bg-zinc-900 w-full border border-gray-700 rounded text-xs px-2">
-                                    <button class="text-blue-500"><i class="fas fa-paper-plane"></i></button>
+                                <div class="mt-auto flex gap-2">
+                                    <input type="text" placeholder="Pregunta..." class="bg-zinc-900 w-full border border-zinc-700 rounded-lg text-xs px-3 py-2 text-white focus:outline-none focus:border-blue-500">
+                                    <button class="text-blue-500 bg-blue-900/20 px-3 rounded-lg"><i class="fas fa-paper-plane"></i></button>
                                 </div>
                             </div>
 
                         </div>
                     </div>
-                </div>
-                `,
+                </div>`,
                 owner: `
-                 <div class="bg-gray-900 rounded-xl border border-gray-800 p-8 shadow-2xl h-[450px]">
-                    <div class="border-l-4 border-red-500 bg-zinc-800 p-6 rounded mb-6">
-                        <div class="flex justify-between items-start">
-                            <div>
-                                <h3 class="font-bold text-xl text-white flex items-center gap-2"><i class="fas fa-brain text-red-500"></i> Oráculo de Retención</h3>
-                                <p class="text-sm text-gray-400 mt-1">Gemini analiza patrones y predice quién va a cancelar.</p>
-                            </div>
-                            <span class="bg-red-600 text-white text-xs font-bold px-3 py-1 rounded animate-pulse">3 Riesgos Altos Detectados</span>
-                        </div>
-                    </div>
+                <div class="max-w-4xl mx-auto fade-in">
+                    <div class="bg-zinc-900 rounded-xl border border-zinc-800 p-8 shadow-2xl relative overflow-hidden">
+                        <!-- Background decoration -->
+                        <div class="absolute top-0 right-0 w-64 h-64 bg-blue-500/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
 
-                    <div class="space-y-3">
-                        <div class="bg-black p-4 rounded border border-gray-700 flex justify-between items-center">
-                            <div class="flex items-center gap-3">
-                                <div class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center font-bold">PP</div>
+                        <div class="border-l-4 border-red-500 bg-black/50 p-6 rounded-lg mb-8 relative z-10">
+                            <div class="flex flex-col sm:flex-row justify-between items-start gap-4">
                                 <div>
-                                    <p class="font-bold text-white">Pedro Perez</p>
-                                    <p class="text-xs text-red-400">Motivo: Asistencia bajó 80% este mes</p>
+                                    <h3 class="font-bold text-xl text-white flex items-center gap-3"><i class="fas fa-brain text-red-500"></i> Oráculo de Retención</h3>
+                                    <p class="text-sm text-gray-400 mt-1">Gemini analiza patrones de asistencia y predice bajas.</p>
+                                </div>
+                                <span class="bg-red-600 text-white text-xs font-bold px-3 py-1.5 rounded-full animate-pulse shadow-lg shadow-red-900/50">3 Riesgos Altos Detectados</span>
+                            </div>
+                        </div>
+
+                        <div class="space-y-4 relative z-10">
+                            <div class="bg-black p-5 rounded-xl border border-zinc-800 flex flex-col sm:flex-row justify-between items-center gap-4 hover:border-red-900 transition duration-300">
+                                <div class="flex items-center gap-4 w-full sm:w-auto">
+                                    <div class="w-12 h-12 rounded-full bg-zinc-800 flex items-center justify-center font-bold text-lg text-gray-500">PP</div>
+                                    <div>
+                                        <p class="font-bold text-white text-lg">Pedro Perez</p>
+                                        <p class="text-xs text-red-400 bg-red-900/10 px-2 py-0.5 rounded border border-red-900/30 inline-block mt-1">Asistencia bajó 80% este mes</p>
+                                    </div>
+                                </div>
+                                <div class="text-right w-full sm:w-auto flex flex-row sm:flex-col justify-between items-center sm:items-end">
+                                    <p class="text-red-600 font-bold text-2xl">92% Riesgo</p>
+                                    <button class="text-xs text-blue-400 hover:text-white transition flex items-center gap-1 mt-1"><i class="fas fa-magic"></i> Generar Rescate con IA</button>
                                 </div>
                             </div>
-                            <div class="text-right">
-                                <p class="text-red-600 font-bold text-xl">92% Riesgo</p>
-                                <button class="text-xs text-blue-400 hover:underline"><i class="fas fa-magic"></i> Generar WhatsApp de rescate</button>
+
+                            <!-- AI Message Generated -->
+                            <div class="ml-0 sm:ml-16 bg-zinc-800/80 p-4 rounded-xl border border-zinc-700 text-sm italic text-gray-300 relative">
+                                <div class="absolute -top-2 left-8 w-0 h-0 border-l-[8px] border-l-transparent border-r-[8px] border-r-transparent border-b-[8px] border-b-zinc-700"></div>
+                                <span class="text-blue-400 font-bold not-italic block mb-1 text-xs uppercase"><i class="fas fa-robot mr-1"></i> Sugerencia Gemini:</span> 
+                                "Hola Pedro, la barra olímpica pregunta por ti. 💪 Te guardamos un batido gratis si vienes antes del viernes. ¿Te esperamos?"
+                                <div class="mt-3 flex gap-2">
+                                    <button class="bg-green-600 hover:bg-green-700 text-white text-xs font-bold px-3 py-1.5 rounded transition">Enviar WhatsApp</button>
+                                    <button class="bg-zinc-700 hover:bg-zinc-600 text-white text-xs font-bold px-3 py-1.5 rounded transition">Reescribir</button>
+                                </div>
                             </div>
                         </div>
-
-                        <!-- Mensaje Generado -->
-                        <div class="ml-12 bg-gray-800 p-3 rounded border border-gray-600 text-xs italic text-gray-300 relative">
-                            <div class="absolute -top-2 left-4 w-0 h-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-b-[8px] border-b-gray-600"></div>
-                            <span class="text-blue-400 font-bold not-italic">Sugerencia IA:</span> "Hola Pedro, la barra olímpica pregunta por ti. 💪 Te guardamos un batido gratis si vienes antes del viernes. ¿Te esperamos?"
-                        </div>
                     </div>
-                 </div>
-                `
+                </div>`
             }
         };
 
-        // --- FUNCIONES DE LÓGICA ---
-        
-        // Función principal para cambiar Slides
-        function showSlide(slideId) {
-            // Ocultar todos
-            document.querySelectorAll('.slide').forEach(el => {
-                el.classList.add('hidden');
-                el.classList.remove('active');
-            });
+        // --- STATE & RENDER LOGIC ---
+        let currentModule = 'intro';
+        let currentRole = 'client';
 
-            // Mostrar el seleccionado
-            const activeSlide = document.getElementById(slideId);
-            activeSlide.classList.remove('hidden');
+        function renderModule(moduleId) {
+            currentModule = moduleId;
+            const data = contentData[moduleId];
+
+            // Update Header
+            document.getElementById('page-title').innerHTML = data.title;
+            document.getElementById('page-desc').innerText = data.desc;
+
+            // Toggle Visibility
+            const toggleEl = document.getElementById('view-toggle');
+            if (data.hasToggle) {
+                toggleEl.classList.remove('hidden');
+                renderContent();
+            } else {
+                toggleEl.classList.add('hidden');
+                document.getElementById('content-area').innerHTML = data.html;
+            }
             
-            // Pequeño hack para reiniciar la animación CSS
-            void activeSlide.offsetWidth; 
-            activeSlide.classList.add('active');
-
-            // Si es un slide interactivo, cargar el contenido por defecto (User)
-            if(views[slideId]) {
-                toggleView(slideId, 'user');
+            // Close mobile sidebar if open
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            if(!sidebar.classList.contains('-translate-x-full') && window.innerWidth < 768){
+                toggleSidebar();
             }
         }
 
-        // Función para cambiar entre Vista Cliente / Vista Dueño
-        function toggleView(slideId, mode) {
-            const container = document.getElementById(slideId + '-content');
-            if(container && views[slideId][mode]) {
-                // Inyectar HTML
-                container.innerHTML = views[slideId][mode];
-                
-                // Actualizar botones
-                const slideEl = document.getElementById(slideId);
-                const buttons = slideEl.querySelectorAll('.view-btn');
-                buttons.forEach(btn => {
-                    if(btn.textContent.toLowerCase().includes(mode === 'user' ? 'cliente' : 'dueño')) {
-                        btn.classList.add('bg-white', 'text-black');
-                        btn.classList.remove('text-gray-400');
-                    } else {
-                        btn.classList.remove('bg-white', 'text-black');
-                        btn.classList.add('text-gray-400');
-                    }
-                });
+        function setRole(role) {
+            currentRole = role;
+            renderContent();
+            
+            // Update Toggle Buttons
+            const btnClient = document.getElementById('btn-client');
+            const btnOwner = document.getElementById('btn-owner');
+
+            if (role === 'client') {
+                btnClient.className = "px-4 py-2 rounded-md text-xs font-bold transition-all bg-red-600 text-white shadow-lg";
+                btnOwner.className = "px-4 py-2 rounded-md text-xs font-bold transition-all text-gray-400 hover:text-white";
+            } else {
+                btnClient.className = "px-4 py-2 rounded-md text-xs font-bold transition-all text-gray-400 hover:text-white";
+                btnOwner.className = "px-4 py-2 rounded-md text-xs font-bold transition-all bg-white text-black shadow-lg";
             }
         }
 
-        // Toggle menú móvil
-        document.querySelector('.fa-bars').addEventListener('click', () => {
-            const sidebar = document.querySelector('aside');
-            sidebar.classList.toggle('hidden');
-            sidebar.classList.toggle('absolute');
-            sidebar.classList.toggle('h-full');
-            sidebar.classList.toggle('w-full');
-        });
+        function renderContent() {
+            const data = contentData[currentModule];
+            if (data.hasToggle) {
+                document.getElementById('content-area').innerHTML = data[currentRole];
+            }
+        }
 
-        // Iniciar en intro
-        // showSlide('intro'); 
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            
+            if (sidebar.classList.contains('-translate-x-full')) {
+                sidebar.classList.remove('-translate-x-full');
+                overlay.classList.remove('hidden');
+            } else {
+                sidebar.classList.add('-translate-x-full');
+                overlay.classList.add('hidden');
+            }
+        }
+
+        // Init
+        renderModule('intro');
 
     </script>
 </body>
